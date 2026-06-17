@@ -1571,6 +1571,69 @@
             .hero-layout .hero-subtitle { font-size: clamp(1.45rem, 7vw, 2.15rem) !important; }
         }
 
+
+        /* Final fixes: red desktop scrollbar + mobile right-aligned prices */
+        html {
+            scrollbar-color: #b5121b #fff4e4;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #b5121b !important;
+            border-radius: 999px !important;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8f1017 !important;
+        }
+
+        .menu-item-header {
+            width: 100%;
+        }
+
+        .menu-item-name {
+            min-width: 0;
+            flex: 0 1 auto;
+        }
+
+        .menu-item-dots {
+            flex: 1 1 auto;
+            min-width: 16px;
+        }
+
+        .menu-item-price {
+            margin-left: auto !important;
+            text-align: right !important;
+            min-width: max-content;
+            flex: 0 0 auto;
+        }
+
+        @media (max-width: 640px) {
+            .menu-item-header {
+                display: flex !important;
+                align-items: baseline !important;
+                gap: 8px !important;
+                width: 100% !important;
+            }
+
+            .menu-item-name {
+                flex: 0 1 auto !important;
+                min-width: 0 !important;
+                overflow-wrap: anywhere;
+            }
+
+            .menu-item-dots {
+                flex: 1 1 auto !important;
+                min-width: 10px !important;
+            }
+
+            .menu-item-price {
+                margin-left: auto !important;
+                text-align: right !important;
+                min-width: max-content !important;
+                flex: 0 0 auto !important;
+            }
+        }
+
     </style>
 </head>
 <body>
