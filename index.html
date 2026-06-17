@@ -1,0 +1,3410 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ona Moja | Restoran & Meni</title>
+    <meta name="description" content="Ona Moja - restoran u Doboju sa jelima, pićima i domaćom kuhinjom.">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Roboto+Slab:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        rustiqe: {
+                            light: '#f9f6f0',
+                            DEFAULT: '#8b5a2b',
+                            dark: '#1a0f0a',
+                            accent: '#d4a373',
+                            warm: '#f5ebe0',
+                            cream: '#fdf6f0',
+                            gold: '#c9a86c'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Noto Serif', 'Georgia', 'serif'],
+                        sans: ['Roboto Slab', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'elegant': '0 20px 60px rgba(0,0,0,0.15)',
+                        'subtle': '0 4px 20px rgba(139,90,43,0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #f9f6f0;
+            color: #1a0f0a;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f9f6f0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8b5a2b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3e2723;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://v3b.fal.media/files/b/0a9d4378/0dgmdCe_u-1095EcLQcNf_5MbpFuzR.png') center/cover no-repeat;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(26, 15, 10, 0.7) 0%,
+                rgba(26, 15, 10, 0.85) 50%,
+                rgba(26, 15, 10, 0.95) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-logo {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(212, 163, 115, 0.6);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            margin-bottom: 2rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3.5rem, 12vw, 9rem);
+            font-weight: 700;
+            color: #f9f6f0;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+            background: linear-gradient(135deg, #f9f6f0 0%, #d4a373 50%, #f9f6f0 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-style: italic;
+            color: #d4a373;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+
+        .hero-divider {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4a373, transparent);
+            margin: 2rem auto;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(26, 15, 10, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 163, 115, 0.3);
+            border-radius: 50px;
+            padding: 6px;
+            display: flex;
+            gap: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .lang-btn {
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+            color: #d4a373;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #8b5a2b, #d4a373);
+            color: #f9f6f0;
+            box-shadow: 0 4px 15px rgba(139, 90, 43, 0.4);
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: #f9f6f0;
+            text-shadow: 0 0 20px rgba(212, 163, 115, 0.5);
+        }
+
+        /* Menu Tabs */
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 4rem 0 3rem;
+            flex-wrap: wrap;
+            padding: 0 1rem;
+        }
+
+        .tab-btn {
+            position: relative;
+            padding: 14px 32px;
+            border: 2px solid rgba(62, 39, 35, 0.3);
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            color: #3e2723;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #3e2723, #5d3a1f);
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: -1;
+        }
+
+        .tab-btn.active {
+            color: #f9f6f0;
+            border-color: #3e2723;
+            box-shadow: 0 10px 30px rgba(62, 39, 35, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active::before {
+            opacity: 1;
+        }
+
+        .tab-btn:hover:not(.active) {
+            border-color: #8b5a2b;
+            color: #8b5a2b;
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 90, 43, 0.15);
+        }
+
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2.5rem;
+            padding: 0 1rem;
+            max-width: 1400px;
+            margin: 0 auto 6rem;
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            border: 1px solid rgba(212, 163, 115, 0.15);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .menu-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+        }
+
+        .menu-card-header {
+            background: linear-gradient(135deg, #3e2723 0%, #5d3a1f 100%);
+            color: #f9f6f0;
+            padding: 1.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-card-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(212, 163, 115, 0.3) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .menu-card-header h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-card-body {
+            padding: 1.5rem 2rem 2rem;
+        }
+
+        .menu-item {
+            padding: 1rem 0;
+            border-bottom: 1px dashed rgba(139, 90, 43, 0.2);
+            transition: all 0.3s;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item:hover {
+            padding-left: 8px;
+            background: rgba(212, 163, 115, 0.05);
+            margin: 0 -1rem;
+            padding-left: calc(1rem + 8px);
+            padding-right: 1rem;
+            border-radius: 8px;
+        }
+
+        .menu-item-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 4px;
+        }
+
+        .menu-item-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #1a0f0a;
+        }
+
+        .menu-item-dots {
+            flex: 1;
+            border-bottom: 1.5px dotted rgba(139, 90, 43, 0.4);
+            min-width: 20px;
+        }
+
+        .menu-item-price {
+            font-weight: 700;
+            color: #8b5a2b;
+            font-size: 1.05rem;
+            white-space: nowrap;
+        }
+
+        .menu-item-desc {
+            font-size: 0.9rem;
+            color: #6b6054;
+            font-style: italic;
+            margin-top: 4px;
+            line-height: 1.5;
+        }
+
+        /* Reservation Box */
+        .reservation-box {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 3rem;
+            background: linear-gradient(135deg, #3e2723 0%, #5d3a1f 100%);
+            color: #f9f6f0;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(62, 39, 35, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reservation-box::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(212, 163, 115, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .reservation-box h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .reservation-phone {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #d4a373;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            position: relative;
+        }
+
+        .reservation-phone::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #d4a373;
+            transition: width 0.4s;
+        }
+
+        .reservation-phone:hover::after {
+            width: 100%;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(180deg, #1a0f0a 0%, #0d0704 100%);
+            color: #c4b5a5;
+            padding: 6rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212, 163, 115, 0.5), transparent);
+        }
+
+        .footer-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: #f9f6f0;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .footer-tagline {
+            text-align: center;
+            color: #d4a373;
+            font-style: italic;
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-divider {
+            width: 60px;
+            height: 1px;
+            background: rgba(212, 163, 115, 0.5);
+            margin: 2rem auto;
+        }
+
+        .qr-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .qr-code {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border: 2px solid rgba(212, 163, 115, 0.4);
+            border-radius: 12px;
+            padding: 8px;
+            background: white;
+            transition: transform 0.3s;
+        }
+
+        .qr-code:hover {
+            transform: scale(1.1) rotate(3deg);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 0.85rem;
+            opacity: 0.6;
+            line-height: 1.8;
+        }
+
+        /* Scroll Animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scroll-animate.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .language-switcher {
+                top: 10px;
+                right: 10px;
+                padding: 4px;
+            }
+
+            .lang-btn {
+                padding: 8px 14px;
+                font-size: 0.75rem;
+            }
+
+            .hero-logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .menu-card-body {
+                padding: 1.25rem 1.5rem 1.5rem;
+            }
+
+            .menu-card-header {
+                padding: 1.25rem 1.5rem;
+            }
+        }
+
+        /* Loading Screen */
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: #1a0f0a;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1.5rem;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .loader-text {
+            color: #d4a373;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.3em;
+        }
+
+        /* Gallery */
+        .gallery-item {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 163, 115, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            aspect-ratio: 9 / 16;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+        }
+
+        .gallery-item img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(26, 15, 10, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 80vh;
+            border-radius: 16px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+        }
+
+        .lightbox button {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            line-height: 1;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 999px;
+        }
+
+        /* Section backgrounds */
+        .section-warm {
+            background: linear-gradient(180deg, #f9f6f0, #f5ebe0);
+            padding: 6rem 0;
+        }
+
+        .section-dark {
+            background: linear-gradient(180deg, #1a0f0a, #3e2723);
+            padding: 6rem 0;
+            color: #f9f6f0;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 30px;
+            padding: 4rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            border: 1px solid rgba(212, 163, 115, 0.2);
+        }
+
+        .decorative-line {
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #8b5a2b, #d4a373);
+            margin: 1rem auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #8b5a2b, #d4a373);
+            color: #f9f6f0;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s;
+            box-shadow: 0 10px 30px rgba(139, 90, 43, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 90, 43, 0.5);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .section-card {
+                padding: 2rem 1.5rem;
+                border-radius: 20px;
+            }
+            .reservation-box {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        /* Ona Moja premium redesign overrides */
+        :root {
+            --om-ink: #170f0a;
+            --om-brown: #513019;
+            --om-copper: #b9783d;
+            --om-gold: #e6c987;
+            --om-cream: #fff8ea;
+            --om-paper: #f3e4c7;
+            --om-green: #18362b;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 20% 10%, rgba(230,201,135,.18), transparent 34%),
+                radial-gradient(circle at 85% 20%, rgba(81,48,25,.18), transparent 30%),
+                linear-gradient(180deg, #fff8ea 0%, #efe0c0 48%, #170f0a 100%);
+        }
+
+        .hero {
+            min-height: 96vh;
+            isolation: isolate;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 22px;
+            border: 1px solid rgba(230,201,135,.28);
+            border-radius: 32px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .hero-bg {
+            background:
+                linear-gradient(90deg, rgba(23,15,10,.92) 0%, rgba(23,15,10,.68) 44%, rgba(23,15,10,.28) 100%),
+                url('foto/restoran1.jpg') center/cover no-repeat;
+            transform: scale(1.03);
+            filter: saturate(1.05) contrast(1.08);
+        }
+
+        .hero-overlay {
+            background:
+                radial-gradient(circle at 50% 42%, rgba(230,201,135,.20), transparent 28%),
+                linear-gradient(180deg, rgba(23,15,10,.18) 0%, rgba(23,15,10,.78) 78%, #170f0a 100%);
+        }
+
+        .hero-content {
+            max-width: 980px;
+            padding: 3rem 1.5rem;
+        }
+
+        .hero-logo {
+            width: 112px;
+            height: 112px;
+            border: 1px solid rgba(230,201,135,.9);
+            padding: 8px;
+            background: rgba(255,248,234,.9);
+            box-shadow: 0 24px 80px rgba(0,0,0,.55), 0 0 0 12px rgba(230,201,135,.08);
+            margin-bottom: 1.6rem;
+        }
+
+        .hero-title {
+            letter-spacing: .08em;
+            font-size: clamp(4.2rem, 13vw, 10.5rem);
+            text-shadow: 0 18px 60px rgba(0,0,0,.55);
+            background: linear-gradient(120deg, #fff8ea 0%, #e6c987 36%, #b9783d 58%, #fff2c2 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .hero-divider {
+            width: min(260px, 55vw);
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(230,201,135,.95), transparent);
+            margin: 1.4rem auto;
+        }
+
+        .hero-badges, .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: .75rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-badges span {
+            color: #fff8ea;
+            border: 1px solid rgba(230,201,135,.36);
+            background: rgba(255,248,234,.08);
+            backdrop-filter: blur(14px);
+            border-radius: 999px;
+            padding: .55rem .9rem;
+            font-size: .78rem;
+            text-transform: uppercase;
+            letter-spacing: .16em;
+        }
+
+        .hero-subtitle {
+            color: #fff0bd;
+            font-size: clamp(1.25rem, 2.7vw, 2rem);
+            max-width: 760px;
+            text-shadow: 0 10px 34px rgba(0,0,0,.65);
+            margin-top: 1.2rem;
+        }
+
+        .premium-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 170px;
+            padding: 15px 24px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 800;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            font-size: .78rem;
+            transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+        }
+
+        .premium-btn.primary {
+            background: linear-gradient(135deg, #e6c987, #b9783d);
+            color: #170f0a;
+            box-shadow: 0 20px 50px rgba(185,120,61,.34);
+        }
+
+        .premium-btn.secondary {
+            border: 1px solid rgba(230,201,135,.55);
+            color: #fff8ea;
+            background: rgba(255,248,234,.08);
+            backdrop-filter: blur(14px);
+        }
+
+        .premium-btn:hover { transform: translateY(-3px); }
+
+        .language-switcher {
+            top: 22px;
+            right: 22px;
+            background: rgba(23,15,10,.72);
+            border-color: rgba(230,201,135,.34);
+            box-shadow: 0 20px 70px rgba(0,0,0,.35);
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #e6c987, #b9783d);
+            color: #170f0a;
+        }
+
+        .section-warm {
+            background: linear-gradient(180deg, #170f0a 0%, #25170d 18%, #fff8ea 18%, #f1dfbd 100%);
+            padding-top: 7rem;
+        }
+
+        .section-card {
+            background:
+                linear-gradient(135deg, rgba(255,255,255,.94), rgba(255,248,234,.86)),
+                radial-gradient(circle at top right, rgba(230,201,135,.32), transparent 34%);
+            border: 1px solid rgba(185,120,61,.22);
+            box-shadow: 0 30px 90px rgba(23,15,10,.16);
+            border-radius: 36px;
+        }
+
+        #menu {
+            background:
+                linear-gradient(180deg, #f1dfbd 0%, #fff8ea 35%, #1b110a 35%, #170f0a 100%) !important;
+            padding-top: 7rem;
+        }
+
+        #menu .text-center h2, #menu-title {
+            color: #170f0a !important;
+        }
+
+        #menu-subtitle {
+            color: #5a402d !important;
+            font-weight: 500;
+        }
+
+        .menu-tabs {
+            position: sticky;
+            top: 18px;
+            z-index: 50;
+            width: fit-content;
+            max-width: calc(100vw - 2rem);
+            margin-left: auto;
+            margin-right: auto;
+            padding: .55rem;
+            border-radius: 999px;
+            background: rgba(255,248,234,.82);
+            border: 1px solid rgba(185,120,61,.22);
+            box-shadow: 0 16px 50px rgba(23,15,10,.14);
+            backdrop-filter: blur(18px);
+        }
+
+        .tab-btn {
+            border: 0;
+            background: transparent;
+            color: #5b3924;
+            padding: 13px 24px;
+        }
+
+        .tab-btn::before { background: linear-gradient(135deg, #170f0a, #513019); }
+        .tab-btn.active { color: #fff8ea; border-color: transparent; }
+
+        .menu-grid {
+            grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+            gap: 1.6rem;
+            align-items: start;
+        }
+
+        .menu-card {
+            background: linear-gradient(180deg, rgba(255,248,234,.98), rgba(243,228,199,.96));
+            border: 1px solid rgba(230,201,135,.30);
+            box-shadow: 0 22px 70px rgba(0,0,0,.22);
+            border-radius: 28px;
+            overflow: hidden;
+        }
+
+        .menu-card-header {
+            background:
+                radial-gradient(circle at 88% 20%, rgba(230,201,135,.24), transparent 30%),
+                linear-gradient(135deg, #170f0a 0%, #513019 100%);
+            padding: 1.45rem 1.65rem;
+        }
+
+        .menu-card-header h3 {
+            font-size: 2rem;
+            letter-spacing: .035em;
+        }
+
+        .menu-card-body { padding: 1.35rem 1.55rem 1.55rem; }
+
+        .menu-item {
+            border-bottom: 1px solid rgba(81,48,25,.12);
+            padding: .86rem 0;
+        }
+
+        .menu-item:hover {
+            background: rgba(230,201,135,.16);
+        }
+
+        .menu-item-name { color: #170f0a; font-size: 1rem; }
+        .menu-item-price {
+            color: #7b451f;
+            background: rgba(230,201,135,.20);
+            border: 1px solid rgba(185,120,61,.18);
+            border-radius: 999px;
+            padding: .22rem .55rem;
+            font-size: .92rem;
+        }
+        .menu-item-desc { color: #6b4a35; }
+
+        .reservation-box {
+            background:
+                radial-gradient(circle at 18% 10%, rgba(230,201,135,.20), transparent 32%),
+                linear-gradient(135deg, #18362b 0%, #170f0a 100%);
+            border: 1px solid rgba(230,201,135,.34);
+            box-shadow: 0 32px 90px rgba(0,0,0,.34);
+        }
+
+        .reservation-phone { color: #e6c987; }
+
+        #gallery-section {
+            background: linear-gradient(180deg, #170f0a 0%, #fff8ea 100%) !important;
+        }
+
+        footer {
+            background:
+                radial-gradient(circle at 50% 0%, rgba(230,201,135,.16), transparent 30%),
+                linear-gradient(180deg, #170f0a 0%, #080503 100%);
+        }
+
+        .footer-brand { color: #fff8ea; }
+
+        .scroll-animate { opacity: 1; transform: none; }
+
+        @media (max-width: 768px) {
+            .hero::before { inset: 10px; border-radius: 22px; }
+            .hero-title { font-size: clamp(3.6rem, 18vw, 6rem); letter-spacing: .035em; }
+            .hero-logo { width: 92px; height: 92px; }
+            .hero-actions .premium-btn { width: 100%; max-width: 290px; }
+            .menu-tabs { position: static; border-radius: 22px; }
+            .tab-btn { width: 100%; }
+            .menu-grid { grid-template-columns: 1fr; padding: 0; }
+            .menu-item-header { align-items: flex-start; }
+            .menu-item-dots { display: none; }
+        }
+
+
+        /* Kafana background: red-white checkered tablecloth + restaurant ambience */
+        body {
+            background-color: #fff7e6;
+            background-image:
+                linear-gradient(180deg, rgba(255,248,234,.76), rgba(255,248,234,.66)),
+                conic-gradient(from 45deg,
+                    rgba(175, 24, 20, .48) 0 25%,
+                    rgba(255, 255, 255, .86) 0 50%,
+                    rgba(175, 24, 20, .48) 0 75%,
+                    rgba(255, 255, 255, .86) 0),
+                url('foto/restoran4.jpg');
+            background-size: auto, 82px 82px, cover;
+            background-position: center, 0 0, center;
+            background-attachment: fixed, fixed, fixed;
+            background-blend-mode: normal, multiply, normal;
+        }
+
+        .hero-bg {
+            background:
+                linear-gradient(90deg, rgba(23,15,10,.90) 0%, rgba(23,15,10,.64) 44%, rgba(23,15,10,.20) 100%),
+                conic-gradient(from 45deg, rgba(175,24,20,.18) 0 25%, rgba(255,255,255,.09) 0 50%, rgba(175,24,20,.18) 0 75%, rgba(255,255,255,.09) 0),
+                url('foto/restoran1.jpg') center/cover no-repeat;
+            background-size: auto, 96px 96px, cover;
+        }
+
+        .section-warm {
+            background: linear-gradient(180deg, rgba(23,15,10,.98) 0%, rgba(37,23,13,.92) 18%, rgba(255,248,234,.70) 18%, rgba(241,223,189,.66) 100%);
+        }
+
+        #menu {
+            background: linear-gradient(180deg, rgba(241,223,189,.68) 0%, rgba(255,248,234,.62) 30%, rgba(27,17,10,.90) 30%, rgba(23,15,10,.96) 100%) !important;
+        }
+
+        #gallery-section {
+            background: linear-gradient(180deg, rgba(23,15,10,.96) 0%, rgba(255,248,234,.68) 100%) !important;
+        }
+
+        .section-card,
+        .menu-card,
+        .reservation-box,
+        .menu-tabs {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .gallery-item {
+            aspect-ratio: 9 / 16;
+            border: 3px solid rgba(255,248,234,.85);
+            box-shadow: 0 22px 70px rgba(0,0,0,.28);
+            background: rgba(255,248,234,.92);
+        }
+
+        #gallery-container {
+            max-width: 1180px;
+            margin: 0 auto;
+        }
+
+
+        /* Gallery is rendered inside the Foto galerija tab; hide old duplicate section */
+        #gallery-section { display: none !important; }
+
+
+        /* Classic Serbian kafana final skin: red-white palette, readable contrast, wood ambience hero */
+        :root {
+            --kafana-red: #a11218;
+            --kafana-red-dark: #5f070b;
+            --kafana-red-deep: #2a0305;
+            --kafana-red-soft: #d94444;
+            --kafana-white: #fffaf2;
+            --kafana-cream: #fff1df;
+            --kafana-pink: #ffe2df;
+            --kafana-border: rgba(161, 18, 24, .28);
+            --kafana-shadow: rgba(95, 7, 11, .28);
+        }
+
+        body {
+            font-family: 'Roboto Slab', Georgia, serif !important;
+            color: var(--kafana-red-deep);
+            background-color: var(--kafana-white);
+            background-image:
+                linear-gradient(180deg, rgba(255,250,242,.88), rgba(255,241,223,.78)),
+                conic-gradient(from 45deg,
+                    rgba(161, 18, 24, .58) 0 25%,
+                    rgba(255,255,255,.94) 0 50%,
+                    rgba(161, 18, 24, .58) 0 75%,
+                    rgba(255,255,255,.94) 0),
+                url('foto/restoran7.jpg');
+            background-size: auto, 74px 74px, cover;
+            background-position: center, 0 0, center;
+            background-attachment: fixed, fixed, fixed;
+            background-blend-mode: normal, multiply, soft-light;
+        }
+
+        h1, h2, h3, h4, .hero-title, .footer-brand, .menu-card-header h3,
+        .font-serif, .loader-text {
+            font-family: 'Noto Serif', Georgia, serif !important;
+        }
+
+        .font-sans, .tab-btn, .lang-btn, .premium-btn, .menu-item-name, .menu-item-price {
+            font-family: 'Roboto Slab', Georgia, serif !important;
+        }
+
+        /* Remove the About block completely */
+        #about { display: none !important; }
+
+        .loader {
+            background: radial-gradient(circle at center, #7f0d12 0%, #2a0305 72%);
+        }
+        .loader-text { color: var(--kafana-white); }
+
+        .language-switcher {
+            background: rgba(95, 7, 11, .88) !important;
+            border: 2px solid rgba(255,250,242,.72) !important;
+            box-shadow: 0 18px 60px rgba(42,3,5,.36) !important;
+        }
+        .lang-btn { color: var(--kafana-white) !important; }
+        .lang-btn.active {
+            background: var(--kafana-white) !important;
+            color: var(--kafana-red-dark) !important;
+            box-shadow: inset 0 0 0 2px rgba(161,18,24,.15), 0 8px 22px rgba(0,0,0,.18) !important;
+        }
+
+        .hero { background: var(--kafana-red-deep); }
+        .hero::before {
+            border-color: rgba(255,250,242,.58) !important;
+            box-shadow: inset 0 0 80px rgba(95,7,11,.36);
+        }
+        .hero-bg {
+            background:
+                linear-gradient(90deg, rgba(42,3,5,.88) 0%, rgba(95,7,11,.58) 48%, rgba(42,3,5,.35) 100%),
+                conic-gradient(from 45deg, rgba(161,18,24,.22) 0 25%, rgba(255,255,255,.10) 0 50%, rgba(161,18,24,.22) 0 75%, rgba(255,255,255,.10) 0),
+                url('foto/restoran7.jpg') center/cover no-repeat !important;
+            background-size: auto, 86px 86px, cover !important;
+            filter: blur(9px) saturate(1.15) contrast(1.05) brightness(.88) !important;
+            transform: scale(1.09) !important;
+        }
+        .hero-overlay {
+            background:
+                radial-gradient(circle at 50% 42%, rgba(255,250,242,.18), transparent 25%),
+                linear-gradient(180deg, rgba(42,3,5,.10) 0%, rgba(42,3,5,.60) 67%, #2a0305 100%) !important;
+        }
+        .hero-logo {
+            border-color: rgba(255,250,242,.92) !important;
+            background: rgba(255,250,242,.96) !important;
+            box-shadow: 0 22px 80px rgba(42,3,5,.58), 0 0 0 12px rgba(161,18,24,.20) !important;
+        }
+        .hero-title {
+            background: linear-gradient(120deg, #fffaf2 0%, #ffd9d5 30%, #e84b4b 54%, #fffaf2 100%) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            color: #fffaf2 !important;
+            text-shadow: 0 18px 62px rgba(42,3,5,.78) !important;
+            letter-spacing: .06em !important;
+        }
+        .hero-divider, .decorative-line {
+            background: linear-gradient(90deg, transparent, var(--kafana-red), transparent) !important;
+        }
+        .hero-badges span {
+            color: var(--kafana-white) !important;
+            border-color: rgba(255,250,242,.62) !important;
+            background: rgba(95,7,11,.58) !important;
+        }
+        .hero-subtitle {
+            color: #fffaf2 !important;
+            font-weight: 600 !important;
+            text-shadow: 0 10px 34px rgba(42,3,5,.88) !important;
+        }
+        .premium-btn.primary {
+            background: var(--kafana-white) !important;
+            color: var(--kafana-red-dark) !important;
+            border: 2px solid rgba(161,18,24,.20) !important;
+        }
+        .premium-btn.secondary {
+            background: rgba(95,7,11,.70) !important;
+            color: var(--kafana-white) !important;
+            border: 2px solid rgba(255,250,242,.62) !important;
+        }
+
+        #menu {
+            background:
+                linear-gradient(180deg, rgba(255,250,242,.86) 0%, rgba(255,226,223,.82) 28%, rgba(95,7,11,.94) 28%, rgba(42,3,5,.98) 100%),
+                conic-gradient(from 45deg, rgba(161,18,24,.35) 0 25%, rgba(255,255,255,.76) 0 50%, rgba(161,18,24,.35) 0 75%, rgba(255,255,255,.76) 0) !important;
+            background-size: auto, 76px 76px !important;
+            padding-top: 7rem !important;
+        }
+        #menu-title, #menu .text-center h2 {
+            color: var(--kafana-red-dark) !important;
+            text-shadow: 0 2px 0 rgba(255,255,255,.58);
+        }
+        #menu-subtitle { color: var(--kafana-red-deep) !important; font-weight: 700 !important; }
+
+        .menu-tabs {
+            background: rgba(255,250,242,.92) !important;
+            border: 2px solid rgba(161,18,24,.22) !important;
+            box-shadow: 0 16px 48px var(--kafana-shadow) !important;
+        }
+        .tab-btn { color: var(--kafana-red-dark) !important; }
+        .tab-btn::before { background: linear-gradient(135deg, var(--kafana-red), var(--kafana-red-dark)) !important; }
+        .tab-btn.active { color: var(--kafana-white) !important; }
+
+        .menu-card {
+            background: linear-gradient(180deg, #fffaf2 0%, #fff1df 100%) !important;
+            border: 2px solid rgba(161,18,24,.18) !important;
+            box-shadow: 0 22px 70px rgba(42,3,5,.30) !important;
+        }
+        .menu-card-header {
+            background:
+                linear-gradient(135deg, rgba(255,255,255,.10), transparent 36%),
+                linear-gradient(135deg, var(--kafana-red) 0%, var(--kafana-red-dark) 100%) !important;
+            color: var(--kafana-white) !important;
+        }
+        .menu-card-header h3 { color: var(--kafana-white) !important; text-shadow: 0 2px 12px rgba(42,3,5,.45); }
+        .menu-item { border-bottom-color: rgba(161,18,24,.16) !important; }
+        .menu-item:hover { background: rgba(217,68,68,.10) !important; }
+        .menu-item-name { color: var(--kafana-red-deep) !important; font-weight: 700 !important; }
+        .menu-item-dots { border-bottom-color: rgba(161,18,24,.35) !important; }
+        .menu-item-price {
+            color: var(--kafana-white) !important;
+            background: var(--kafana-red) !important;
+            border-color: rgba(95,7,11,.25) !important;
+        }
+        .menu-item-desc { color: #6f2528 !important; font-weight: 500 !important; }
+
+        .reservation-box {
+            background: linear-gradient(135deg, var(--kafana-red) 0%, var(--kafana-red-dark) 100%) !important;
+            border: 2px solid rgba(255,250,242,.44) !important;
+            box-shadow: 0 28px 80px rgba(95,7,11,.40) !important;
+        }
+        .reservation-box h3 { color: var(--kafana-white) !important; }
+        .reservation-phone { color: var(--kafana-white) !important; text-shadow: 0 2px 12px rgba(42,3,5,.45); }
+
+        .gallery-item {
+            background: var(--kafana-white) !important;
+            border: 4px solid var(--kafana-white) !important;
+            box-shadow: 0 20px 58px rgba(42,3,5,.36) !important;
+        }
+
+        footer {
+            background:
+                linear-gradient(180deg, rgba(95,7,11,.96), rgba(42,3,5,1)),
+                conic-gradient(from 45deg, rgba(161,18,24,.35) 0 25%, rgba(255,255,255,.08) 0 50%, rgba(161,18,24,.35) 0 75%, rgba(255,255,255,.08) 0) !important;
+            background-size: auto, 80px 80px !important;
+            color: rgba(255,250,242,.78) !important;
+        }
+        .footer-brand { color: var(--kafana-white) !important; }
+        .footer-tagline, #review-label { color: #ffd9d5 !important; }
+        .qr-code { border-color: rgba(255,250,242,.78) !important; }
+
+        @media (max-width: 768px) {
+            body { background-size: auto, 56px 56px, cover; }
+            .hero-bg { filter: blur(7px) saturate(1.12) brightness(.82) !important; }
+        }
+
+
+        /* Unique hero v2: kafana tablecloth + layered restaurant cards */
+        .hero {
+            min-height: 100svh;
+            padding: 72px 24px 42px;
+            background:
+                linear-gradient(135deg, rgba(23,15,10,.78), rgba(23,15,10,.48)),
+                conic-gradient(from 45deg, rgba(178, 24, 24, .34) 0 25%, rgba(255,255,255,.34) 0 50%, rgba(178,24,24,.34) 0 75%, rgba(255,255,255,.34) 0);
+            background-size: auto, 74px 74px;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 18% 20%, rgba(230,201,135,.22), transparent 32%),
+                radial-gradient(circle at 78% 54%, rgba(178,24,24,.24), transparent 34%),
+                linear-gradient(180deg, transparent 0%, rgba(23,15,10,.92) 100%);
+        }
+
+        .hero-bg {
+            opacity: .88;
+            filter: saturate(1.18) contrast(1.08) brightness(.82);
+            background:
+                linear-gradient(90deg, rgba(23,15,10,.90), rgba(23,15,10,.32)),
+                url('images/general-gallery/ona-moja-general-07.jpg') center/cover no-repeat;
+            transform: scale(1.06);
+        }
+
+        .hero-layout {
+            width: min(1240px, 100%);
+            display: grid;
+            grid-template-columns: minmax(0, 1.02fr) minmax(340px, .92fr);
+            align-items: center;
+            gap: clamp(2rem, 5vw, 5rem);
+            text-align: left;
+            padding: clamp(1rem, 3vw, 2rem);
+        }
+
+        .hero-copy {
+            position: relative;
+            z-index: 4;
+            padding: clamp(1rem, 3vw, 2rem) 0;
+        }
+
+        .kafana-label {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            padding: .62rem .9rem;
+            border-radius: 999px;
+            color: #fff8ea;
+            background: rgba(178,24,24,.62);
+            border: 1px solid rgba(255,248,234,.28);
+            box-shadow: 0 14px 48px rgba(0,0,0,.28);
+            backdrop-filter: blur(14px);
+            text-transform: uppercase;
+            letter-spacing: .16em;
+            font-weight: 800;
+            font-size: .78rem;
+        }
+
+        .hero-layout .hero-logo {
+            width: 96px;
+            height: 96px;
+            margin: 0 0 1.15rem;
+        }
+
+        .hero-layout .hero-title {
+            font-size: clamp(4.8rem, 11vw, 9.8rem);
+            line-height: .84;
+            letter-spacing: .025em;
+            max-width: 760px;
+        }
+
+        .hero-layout .hero-divider {
+            margin: 1.45rem 0;
+            width: min(360px, 70vw);
+            background: linear-gradient(90deg, #e6c987, rgba(255,248,234,.55), transparent);
+        }
+
+        .hero-layout .hero-badges,
+        .hero-layout .hero-actions {
+            justify-content: flex-start;
+        }
+
+        .hero-layout .hero-subtitle {
+            max-width: 660px;
+            margin-left: 0;
+            margin-right: 0;
+            color: #fff4c7;
+        }
+
+        .hero-showcase {
+            position: relative;
+            z-index: 3;
+            min-height: 620px;
+            transform: rotate(-1.2deg);
+        }
+
+        .tablecloth-card {
+            position: absolute;
+            overflow: hidden;
+            border-radius: 34px;
+            border: 10px solid rgba(255,248,234,.88);
+            box-shadow: 0 34px 100px rgba(0,0,0,.50);
+            background:
+                conic-gradient(from 45deg, #b91c1c 0 25%, #fff8ea 0 50%, #b91c1c 0 75%, #fff8ea 0) 0 0/42px 42px;
+        }
+
+        .tablecloth-card img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            mix-blend-mode: normal;
+        }
+
+        .main-card {
+            inset: 28px 34px 42px 72px;
+            transform: rotate(2.4deg);
+        }
+
+        .floating-card {
+            width: 190px;
+            height: 260px;
+            border-width: 7px;
+            border-radius: 26px;
+        }
+
+        .card-food {
+            left: -6px;
+            bottom: 88px;
+            transform: rotate(-8deg);
+        }
+
+        .card-drink {
+            right: 0;
+            top: 6px;
+            transform: rotate(8deg);
+        }
+
+        .hero-stamp {
+            position: absolute;
+            left: 22px;
+            top: 34px;
+            width: 116px;
+            height: 116px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 5;
+            color: #170f0a;
+            background: radial-gradient(circle, #fff8ea 0%, #e6c987 100%);
+            border: 2px dashed #8b1d1d;
+            box-shadow: 0 18px 55px rgba(0,0,0,.42);
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 800;
+            font-size: 1.7rem;
+            line-height: .9;
+            transform: rotate(-12deg);
+        }
+
+        .hero-stamp span {
+            margin-top: .25rem;
+            font-family: Inter, sans-serif;
+            font-size: .62rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 980px) {
+            .hero-layout {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-copy { text-align: center; }
+            .hero-layout .hero-divider { margin-left: auto; margin-right: auto; }
+            .hero-layout .hero-badges, .hero-layout .hero-actions { justify-content: center; }
+            .hero-layout .hero-subtitle { margin-left: auto; margin-right: auto; }
+            .hero-showcase { min-height: 440px; width: min(560px, 100%); margin: 0 auto; }
+            .main-card { inset: 20px 58px 20px 58px; }
+            .floating-card { width: 150px; height: 210px; }
+        }
+
+        @media (max-width: 640px) {
+            .hero { padding: 64px 12px 32px; }
+            .hero-layout .hero-title { font-size: clamp(4rem, 20vw, 5.8rem); }
+            .hero-showcase { min-height: 360px; }
+            .main-card { inset: 42px 28px 10px 28px; border-width: 7px; }
+            .floating-card { width: 118px; height: 164px; }
+            .card-food { left: 0; bottom: 32px; }
+            .card-drink { right: 0; top: 12px; }
+            .hero-stamp { width: 92px; height: 92px; font-size: 1.35rem; left: 6px; top: 12px; }
+        }
+
+
+        /* Final client tweaks: smaller title, no logo, no photo background */
+        body {
+            background-color: #fff4e4 !important;
+            background-image:
+                linear-gradient(180deg, rgba(255,248,234,.78), rgba(255,248,234,.56)),
+                conic-gradient(from 45deg,
+                    rgba(164, 18, 24, .30) 0 25%,
+                    rgba(255, 248, 234, .82) 0 50%,
+                    rgba(164, 18, 24, .30) 0 75%,
+                    rgba(255, 248, 234, .82) 0) !important;
+            background-size: auto, 84px 84px !important;
+            background-position: center, 0 0 !important;
+            background-attachment: fixed, fixed !important;
+            background-blend-mode: normal, multiply !important;
+        }
+
+        .hero,
+        .hero-bg {
+            background-image:
+                linear-gradient(135deg, rgba(42,3,5,.88), rgba(122,11,17,.78)),
+                conic-gradient(from 45deg,
+                    rgba(255,248,234,.10) 0 25%,
+                    rgba(164,18,24,.20) 0 50%,
+                    rgba(255,248,234,.10) 0 75%,
+                    rgba(164,18,24,.20) 0) !important;
+            background-size: auto, 82px 82px !important;
+            filter: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+        }
+
+        .hero-logo { display: none !important; }
+
+        .hero-layout .hero-title,
+        .hero-title {
+            font-size: clamp(3.2rem, 7.2vw, 6.4rem) !important;
+            line-height: .92 !important;
+            max-width: 620px !important;
+            word-break: normal !important;
+        }
+
+        .hero-showcase {
+            min-height: 560px !important;
+            transform: rotate(-.8deg) scale(.94) !important;
+        }
+
+        .kafana-label { margin-bottom: 2rem !important; }
+
+        @media (max-width: 980px) {
+            .hero-layout .hero-title,
+            .hero-title { font-size: clamp(3rem, 13vw, 5.2rem) !important; }
+            .hero-showcase { min-height: 390px !important; transform: scale(.9) !important; }
+        }
+
+        @media (max-width: 640px) {
+            .hero-layout .hero-title,
+            .hero-title { font-size: clamp(2.8rem, 15vw, 4.25rem) !important; }
+            .hero-showcase { min-height: 320px !important; }
+        }
+
+
+        /* Hero title anti-overlap fix */
+        .hero-layout .hero-title,
+        .hero-title {
+            font-size: clamp(4.1rem, 8.4vw, 7.2rem) !important;
+            line-height: 1.12 !important;
+            letter-spacing: .055em !important;
+            max-width: 760px !important;
+            overflow: visible !important;
+            padding-bottom: .08em !important;
+        }
+
+        .hero-copy {
+            overflow: visible !important;
+        }
+
+        .hero-layout .hero-divider {
+            margin-top: 1.2rem !important;
+            margin-bottom: 1.35rem !important;
+        }
+
+        .hero-layout .hero-subtitle {
+            font-size: clamp(1.8rem, 3.4vw, 3.15rem) !important;
+            line-height: 1.18 !important;
+            max-width: 620px !important;
+        }
+
+        @media (max-width: 980px) {
+            .hero-layout .hero-title,
+            .hero-title { font-size: clamp(3.8rem, 12vw, 6rem) !important; line-height: 1.14 !important; }
+        }
+
+        @media (max-width: 640px) {
+            .hero-layout .hero-title,
+            .hero-title { font-size: clamp(3rem, 14vw, 4.8rem) !important; line-height: 1.16 !important; }
+            .hero-layout .hero-subtitle { font-size: clamp(1.45rem, 7vw, 2.15rem) !important; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <img src="images/logo.png" alt="Loading" class="loader-logo">
+        <div class="loader-text">ONA MOJA</div>
+    </div>
+
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button onclick="setLanguage('lat')" class="lang-btn" data-lang="lat">LAT</button>
+        <button onclick="setLanguage('cyr')" class="lang-btn active" data-lang="cyr">ЋИР</button>
+        <button onclick="setLanguage('en')" class="lang-btn" data-lang="en">EN</button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content hero-layout">
+            <div class="hero-copy">
+                <div id="hero-eyebrow" class="kafana-label">Кафана • Ресторан • Добој</div>
+                <h1 id="hero-title" class="hero-title">Она Моја</h1>
+                <div class="hero-divider"></div>
+                <div id="hero-badges" class="hero-badges" aria-label="Restaurant highlights">
+                    <span>Домаћа кухиња</span>
+                    <span>Роштиљ</span>
+                    <span>Добој</span>
+                </div>
+                <p id="hero-text" class="hero-subtitle">
+                    Ваша оаза у центру Добоја
+                </p>
+                <div class="hero-actions">
+                    <a id="hero-menu-cta" href="#menu" class="premium-btn primary">Погледај мени</a>
+                    <a id="hero-reserve-cta" href="tel:+38766707237" class="premium-btn secondary">Rezerviši sto</a>
+                </div>
+            </div>
+            <div class="hero-showcase" aria-hidden="true">
+                <div class="tablecloth-card main-card">
+                    <img src="images/general-gallery/ona-moja-general-07.jpg" alt="Ambijent restorana Ona Moja">
+                </div>
+                <div class="tablecloth-card floating-card card-food">
+                    <img src="images/general-gallery/ona-moja-general-01.jpg" alt="Jelo Ona Moja">
+                </div>
+                <div class="tablecloth-card floating-card card-drink">
+                    <img src="images/general-gallery/ona-moja-general-09.jpg" alt="Piće Ona Moja">
+                </div>
+                <div class="hero-stamp">4.4 ★<br><span>Google</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section-warm scroll-animate" id="about">
+        <div class="container mx-auto px-4 max-w-5xl text-center">
+            <div class="section-card">
+                <h2 id="about-title" class="font-serif text-4xl md:text-5xl font-bold text-rustiqe-dark mb-6">O nama</h2>
+                <span class="decorative-line"></span>
+                <p id="about-text" class="font-serif text-xl md:text-2xl text-gray-700 leading-relaxed italic">
+                    "Spoj klasike i karaktera — gdje svaki obrok postane priča, a svaki trenutak ostane u sjećanju."
+                </p>
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="p-4">
+                        <div class="text-4xl mb-2">🍷</div>
+                        <h4 class="font-bold text-rustiqe-dark mb-1">Pozorište ukusa</h4>
+                        <p class="text-sm text-gray-600">Pažljivo birani sastojci i autentični recepti</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-4xl mb-2">🕯️</div>
+                        <h4 class="font-bold text-rustiqe-dark mb-1">Atmosfera</h4>
+                        <p class="text-sm text-gray-600">Rustični šarm i toplina ambijenta</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-4xl mb-2">🥂</div>
+                        <h4 class="font-bold text-rustiqe-dark mb-1">Uživanje</h4>
+                        <p class="text-sm text-gray-600">Doživljaj koji ostaje u sećanju</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="py-20 bg-gradient-to-b from-rustiqe-light to-rustiqe-warm" id="menu">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 id="menu-title" class="font-serif text-5xl md:text-6xl font-bold text-rustiqe-dark mb-4">Naš Meni</h2>
+                <div class="decorative-line"></div>
+                <p id="menu-subtitle" class="text-gray-600 mt-4 text-lg">Istražite pažljivo sastavljenu ponudu</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="menu-tabs">
+                <button onclick="switchTab('jelovnik')" id="tab-jelovnik" class="tab-btn active">Jelovnik</button>
+                <button onclick="switchTab('pice')" id="tab-pice" class="tab-btn">Karta Pića</button>
+                <button onclick="switchTab('galerija')" id="tab-galerija" class="tab-btn">Foto galerija</button>
+            </div>
+
+            <!-- Menu Container -->
+            <div id="menu-container">
+                <!-- Dynamic content -->
+            </div>
+
+            <!-- Reservation -->
+            <div id="reservation-box" class="reservation-box scroll-animate">
+            <h3 id="reservation-title">Rezervacije</h3>
+            <p id="reservation-phones">
+            <a href="tel:065381124" class="reservation-phone">065 381-124</a>
+            </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery & Instagram Section -->
+    <section class="py-16 bg-gradient-to-b from-rustiqe-warm to-rustiqe-light" id="gallery-section">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="text-center mb-10 scroll-animate">
+                <h2 class="font-serif text-5xl md:text-6xl font-bold text-rustiqe-dark mb-4">Galerija</h2>
+                <p class="text-gray-700 text-lg">Fotografije sa Google Business profila</p>
+                <div class="decorative-line"></div>
+            </div>
+
+            <div id="gallery-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <!-- Dynamic gallery items inserted by JS -->
+            </div>
+
+            <!-- Instagram Feed Widget -->
+            <div class="mt-8">
+                <!-- Elfsight Instagram Feed -->
+                <script src="https://elfsightcdn.com/platform.js" async></script>
+                <div class="elfsight-app-a9264053-a868-468d-8655-cf4835ee67bd" data-elfsight-app-lazy></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="scroll-animate">
+        <div id="footer-brand" class="footer-brand">ONA MOJA</div>
+        <p id="footer-tagline" class="footer-tagline">Vaša oaza u centru Doboja</p>
+        <div class="footer-divider"></div>
+
+        <div class="qr-section">
+            <p id="review-label" class="text-sm tracking-wider uppercase mb-3">Ocijenite nas na Google</p>
+            <a href="https://g.page/r/CbchmxHMT7TbEBM/review" target="_blank" rel="noopener noreferrer">
+                <img src="images/review.png" alt="QR Code Google Review" class="qr-code">
+            </a>
+        </div>
+
+        <div class="footer-bottom mt-12">
+            <p>&copy; 2026 Restoran Ona Moja. Vojvode Sinđelića 16, Doboj 74000</p>
+            <p>74000 Doboj, Republika Srpska, BiH</p>
+            <p class="mt-4">Made with ❤️ by <a href="https://factorydirect.digital/" target="_blank" rel="noopener noreferrer" class="hover:text-[#d4a373] transition-colors underline decoration-dotted underline-offset-4">Presence Factor</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // State
+        let currentLang = 'cyr';
+        let currentTab = 'jelovnik';
+
+        // Gallery data and renderer
+        const galleryImages = [
+            'images/general-gallery/ona-moja-general-01.jpg',
+            'images/general-gallery/ona-moja-general-02.jpg',
+            'images/general-gallery/ona-moja-general-03.jpg',
+            'images/general-gallery/ona-moja-general-04.jpg',
+            'images/general-gallery/ona-moja-general-05.jpg',
+            'images/general-gallery/ona-moja-general-06.jpg',
+            'images/general-gallery/ona-moja-general-07.jpg',
+            'images/general-gallery/ona-moja-general-08.jpg',
+            'images/general-gallery/ona-moja-general-09.jpg'
+        ];
+
+        function renderGallery() {
+            const container = document.getElementById('menu-container');
+            if (!container) return;
+
+            // Trigger re-render animation
+            container.classList.remove('fade-in');
+            void container.offsetWidth;
+            container.classList.add('fade-in');
+
+            const html = `
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    ${galleryImages
+            .map(
+                (src) => `
+                        <div class="gallery-item" onclick="openLightbox('${src}')">
+                            <img src="${src}" alt="Galerija" loading="eager" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22260%22 height=%22260%22><rect width=%22260%22 height=%22260%22 fill=%22%23f5ebe0%22/><text x=%22130%22 y=%22135%22 text-anchor=%22middle%22 fill=%22%238b5a2b%22 font-size=%2214%22>Slika</text></svg>';" />
+                        </div>
+                    `
+            )
+            .join('')}
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function openLightbox(src) {
+            const lb = document.createElement('div');
+            lb.className = 'lightbox';
+            lb.innerHTML = `
+                <img src="${src}" alt="Pregled">
+                <button onclick="this.parentElement.remove()">×</button>
+            `;
+            lb.addEventListener('click', (e) => {
+                if (e.target === lb) lb.remove();
+            });
+            document.body.appendChild(lb);
+        }
+
+        // Updated switchTab for 3 tabs
+        function switchTab(tab) {
+            currentTab = tab;
+
+            ['jelovnik', 'pice', 'galerija'].forEach((id) => {
+                const el = document.getElementById(`tab-${id}`);
+                if (el) el.classList.toggle('active', id === tab);
+            });
+
+            if (tab === 'jelovnik') {
+                renderMenu(menusData[currentLang].jelovnik);
+            } else if (tab === 'pice') {
+                renderMenu(menusData[currentLang].pica);
+            } else if (tab === 'galerija') {
+                renderGallery();
+            }
+        }
+        const staticI18n = {
+            lat: {
+                brand: "Ona Moja",
+                loader_brand: "ONA MOJA",
+                menu_title: "Naš Meni",
+                menu_subtitle: "Istražite pažljivo sastavljenu ponudu",
+                cta_menu: "Pogledaj meni",
+                cta_reserve: "Rezerviši sto",
+                eyebrow: "Kafana • Restoran • Doboj",
+                badges: ["Domaća kuhinja", "Roštilj", "Doboj"],
+                hero: "Vaša oaza u centru Doboja",
+                tab_jelovnik: "Jelovnik",
+                tab_pice: "Karta Pića",
+                tab_galerija: "Foto galerija",
+                footer_sub: "Vaša oaza u centru Doboja",
+                reservations: "Rezervacije putem telefona:",
+                review_text: "Ocijenite nas na Google",
+                about_title: "O nama",
+                about_sub: '"Spoj klasike i karaktera — gdje svaki obrok postane priča, a svaki trenutak ostane u sjećanju."'
+            },
+            cyr: {
+                brand: "Она Моја",
+                loader_brand: "ОНА МОЈА",
+                menu_title: "Наш мени",
+                menu_subtitle: "Истражите пажљиво састављену понуду",
+                cta_menu: "Погледај мени",
+                cta_reserve: "Резервиши сто",
+                eyebrow: "Кафана • Ресторан • Добој",
+                badges: ["Домаћа кухиња", "Роштиљ", "Добој"],
+                hero: "Ваша оаза у центру Добоја",
+                tab_jelovnik: "Јеловник",
+                tab_pice: "Карта Пића",
+                tab_galerija: "Фото галерија",
+                footer_sub: "Ваша оаза у центру Добоја",
+                reservations: "Резервације путем телефона:",
+                review_text: "Оцијените нас на Google",
+                about_title: "О нама",
+                about_sub: '"Спој класике и карактера — гдје сваки оброк постане прича, а сваки тренутак остаје у сјећању."'
+            },
+            en: {
+                brand: "Ona Moja",
+                loader_brand: "ONA MOJA",
+                menu_title: "Our Menu",
+                menu_subtitle: "Explore a carefully crafted selection",
+                cta_menu: "View menu",
+                cta_reserve: "Reserve table",
+                eyebrow: "Tavern • Restaurant • Doboj",
+                badges: ["Homemade cuisine", "Grill", "Doboj"],
+                hero: "Your oasis in the center of Doboj",
+                tab_jelovnik: "Menu",
+                tab_pice: "Drinks Menu",
+                tab_galerija: "Photo Gallery",
+                footer_sub: "Your oasis in the center of Doboj",
+                reservations: "Reservations by phone:",
+                review_text: "Review us on Google",
+                about_title: "About Us",
+                about_sub: '"A blend of classic and character — where every meal becomes a story, and every moment stays in memory."'
+            }
+        };
+
+        // Menu Data (Ona Moja menu transcribed from Google Maps photos)
+        const menusData = {
+            lat: {
+                jelovnik: [
+                    {
+                                        "category": "Hladna predjela",
+                                        "items": [
+                                                            {
+                                                                                "name": "Hladna plata \"Ona moja\"",
+                                                                                "description": "Pršut, kulen, suvi vrat, sir, kajmak, pogačice",
+                                                                                "price": "20.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Pršut",
+                                                                                "description": "100 g",
+                                                                                "price": "7.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Kulen",
+                                                                                "description": "100 g",
+                                                                                "price": "5.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Suvi vrat",
+                                                                                "description": "100 g",
+                                                                                "price": "5.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Goveđa pečenica",
+                                                                                "price": "7.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Sir travnički",
+                                                                                "description": "100 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Sir ovčiji",
+                                                                                "description": "100 g",
+                                                                                "price": "5.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Sir koziji",
+                                                                                "description": "100 g",
+                                                                                "price": "8.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Kajmak",
+                                                                                "description": "100 g",
+                                                                                "price": "3.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Supe",
+                                        "items": [
+                                                            {
+                                                                                "name": "Pileća supa s povrćem i domaćim rezancima/knedlama",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Goveđa supa s povrćem i domaćim rezancima/knedlama",
+                                                                                "price": "3.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Čorbe",
+                                        "items": [
+                                                            {
+                                                                                "name": "Ragu čorba",
+                                                                                "price": "5.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Riblja čorba",
+                                                                                "price": "5.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Celer čorba",
+                                                                                "price": "5.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Krem čorba od gljiva",
+                                                                                "description": "Vrganj i lisičarka",
+                                                                                "price": "5.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Kuvana jela",
+                                        "items": [
+                                                            {
+                                                                                "name": "Pasulj sa kobasicom",
+                                                                                "price": "6.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Pasulj sa slaninom",
+                                                                                "price": "6.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Pasulj sa suvim rebrima",
+                                                                                "price": "6.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Prebranac",
+                                                                                "price": "5.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Čorbanac",
+                                                                                "price": "6.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Gulaš",
+                                                                                "price": "6.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Paste",
+                                        "items": [
+                                                            {
+                                                                                "name": "Bolonjez",
+                                                                                "price": "6.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Karbonara",
+                                                                                "price": "6.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Losos",
+                                                                                "price": "7.50 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Salate",
+                                        "items": [
+                                                            {
+                                                                                "name": "Paradajz",
+                                                                                "description": "200 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Krastavac",
+                                                                                "description": "200 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Kupus",
+                                                                                "description": "200 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Miješana",
+                                                                                "description": "300 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Šopska",
+                                                                                "description": "200 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Pečena paprika",
+                                                                                "description": "200 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Urnebes",
+                                                                                "description": "200 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Tartar",
+                                                                                "description": "100 g",
+                                                                                "price": "3.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Riba",
+                                        "items": [
+                                                            {
+                                                                                "name": "Potočna pastrmka",
+                                                                                "description": "1 kg",
+                                                                                "price": "35.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Gril lignje",
+                                                                                "description": "Lignje 500 g, prilog",
+                                                                                "price": "14.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Pohovane lignje",
+                                                                                "description": "Lignje 400 g, prilog",
+                                                                                "price": "14.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Punjene lignje",
+                                                                                "description": "Lignje 400 g, prilog",
+                                                                                "price": "15.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Obrok salate",
+                                        "items": [
+                                                            {
+                                                                                "name": "Cezar salata",
+                                                                                "price": "8.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Grčka salata",
+                                                                                "price": "7.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Tuna salata",
+                                                                                "price": "9.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Salata morski plodovi",
+                                                                                "price": "12.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Salata hobotnica",
+                                                                                "price": "13.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Salata \"Ona moja\"",
+                                                                                "price": "15.50 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Topla predjela",
+                                        "items": [
+                                                            {
+                                                                                "name": "Pohovani sir",
+                                                                                "price": "8.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Pohovane paprike sa sirom",
+                                                                                "price": "8.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Rižoto - piletina",
+                                                                                "price": "8.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Rižoto - morski plodovi",
+                                                                                "description": "Lignje, dagnje, škampi, kozice, riža",
+                                                                                "price": "10.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Grilovano povrće",
+                                                                                "description": "Mješavina povrća",
+                                                                                "price": "5.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Prilozi",
+                                        "items": [
+                                                            {
+                                                                                "name": "Pomfrit",
+                                                                                "description": "200 g",
+                                                                                "price": "2.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Pekarski krompir",
+                                                                                "description": "250 g",
+                                                                                "price": "2.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Krompir salata",
+                                                                                "description": "250 g",
+                                                                                "price": "2.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Restovani krompir",
+                                                                                "description": "200 g",
+                                                                                "price": "2.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Dalmatinsko varivo",
+                                                                                "description": "250 g",
+                                                                                "price": "3.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Šampinjoni",
+                                                                                "description": "300 g",
+                                                                                "price": "5.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Riža i grašak",
+                                                                                "description": "250 g",
+                                                                                "price": "2.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Lepinja",
+                                                                                "description": "200 g",
+                                                                                "price": "1.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Desert",
+                                        "items": [
+                                                            {
+                                                                                "name": "Palačinke marmelada",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Palačinke nutela",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Palačinke orasi i nutela",
+                                                                                "price": "4.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Palačinke plazma i nutela",
+                                                                                "price": "3.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Jela sa roštilja",
+                                        "items": [
+                                                            {
+                                                                                "name": "Ćevapi - velika porcija",
+                                                                                "description": "200 g",
+                                                                                "price": "6.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Ćevapi - srednja porcija",
+                                                                                "description": "100 g",
+                                                                                "price": "4.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Ćevapi - mala porcija",
+                                                                                "description": "100 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Rolovani ćevapi",
+                                                                                "description": "250 g",
+                                                                                "price": "7.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Pljeskavica",
+                                                                                "description": "200 g",
+                                                                                "price": "7.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Gurmanska pljeskavica",
+                                                                                "description": "250 g",
+                                                                                "price": "8.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Punjena pljeskavica",
+                                                                                "description": "250 g",
+                                                                                "price": "8.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Pljeskavica u kajmaku",
+                                                                                "description": "250 g",
+                                                                                "price": "8.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Mesni uštipci \"Ona moja\"",
+                                                                                "description": "200 g",
+                                                                                "price": "8.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Roštiljska kobasica u lepinji",
+                                                                                "description": "250 g",
+                                                                                "price": "6.00 KM"
+                                                            }
+                                        ]
+                    }
+],
+                pica: [
+                    { category: "Topli Napici", items: [{ name: "Espresso", price: "2.50 KM" }, { name: "Topla čokolada", price: "3.00 KM" }, { name: "Nes", price: "2.50 KM" }, { name: "Kapućino", price: "3.00 KM" }, { name: "Kapućino aparat", price: "3.00 KM" }, { name: "Latte Macchiato", price: "3.00 KM" }, { name: "Čaj", price: "2.50 KM" }] },
+                    { category: "Vode", items: [{ name: "Rosa", price: "2.50 KM" }, { name: "Vivia 0.7", price: "5.00 KM" }, { name: "Kisela voda 0.25", price: "2.50 KM" }, { name: "Kisela voda 1L", price: "5.00 KM" }] },
+                    { category: "Gazirani Sokovi", items: [{ name: "Coca Cola / Zero", price: "3.00 KM" }, { name: "Fanta", price: "3.00 KM" }, { name: "Bitter Lemon / Tonik", price: "3.00 KM" }, { name: "Tandžarina", price: "3.00 KM" }, { name: "Exotic Kruška / Limeta", price: "2.50 KM" }, { name: "Orangina", price: "3.50 KM" }] },
+                    { category: "Prirodni Sokovi", items: [{ name: "Cedevita Narandža / Limun", price: "3.00 KM" }, { name: "Vitaminka (Jagoda, Jabuka, Borovnica, Breskva)", price: "3.00 KM" }, { name: "Hidra", price: "3.00 KM" }] },
+                    { category: "Cijeđeni Sokovi", items: [{ name: "Limunada", price: "3.50 KM" }, { name: "Cijeđena narandža", price: "5.00 KM" }, { name: "Cijeđeni mix", price: "5.00 KM" }] },
+                    { category: "Žestoka Alkoholna Pića", items: [{ name: "Gorki list / Vlahov / Pelinkovac", price: "2.50 KM" }, { name: "Stock / Jeger", price: "3.00 KM" }] },
+                    { category: "Whiskey, Cognac & Gin", items: [{ name: "Jack Daniels", price: "3.50 KM" }, { name: "Jameson", price: "4.00 KM" }, { name: "Chivas", price: "6.00 KM" }, { name: "Courvoisier", price: "7.00 KM" }, { name: "Beefeater Gin", price: "4.00 KM" }] },
+                    { category: "Rakije (Korijen)", items: [{ name: "Šljiva / Šljiva Barique", price: "3.00 KM" }, { name: "Kruška / Kruška Barique", price: "3.00 KM" }, { name: "Kajsija / Kajsija Barique", price: "3.00 KM" }, { name: "Dunja / Dunja Barique", price: "3.00 KM" }, { name: "Jabuka / Jabuka Barique", price: "3.00 KM" }] },
+                    { category: "Pivo", items: [{ name: "Jelen / Becks / Staropramen", price: "3.00 KM" }, { name: "Stella Artois / Bavaria / Aspal", price: "3.50 KM" }, { name: "Stella točena 0.33", price: "3.50 KM" }, { name: "Nikšićko tamno", price: "4.00 KM" }] }
+                ]
+            },
+            cyr: {
+                jelovnik: [
+                    {
+                                        "category": "Хладна предјела",
+                                        "items": [
+                                                            {
+                                                                                "name": "Hladna plata \"Ona moja\"",
+                                                                                "description": "Pršut, kulen, suvi vrat, sir, kajmak, pogačice",
+                                                                                "price": "20.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Pršut",
+                                                                                "description": "100 g",
+                                                                                "price": "7.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Kulen",
+                                                                                "description": "100 g",
+                                                                                "price": "5.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Suvi vrat",
+                                                                                "description": "100 g",
+                                                                                "price": "5.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Goveđa pečenica",
+                                                                                "price": "7.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Sir travnički",
+                                                                                "description": "100 g",
+                                                                                "price": "3.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Sir ovčiji",
+                                                                                "description": "100 g",
+                                                                                "price": "5.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Sir koziji",
+                                                                                "description": "100 g",
+                                                                                "price": "8.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Kajmak",
+                                                                                "description": "100 g",
+                                                                                "price": "3.00 КМ"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Супе",
+                                        "items": [
+                                                            {
+                                                                                "name": "Pileća supa s povrćem i domaćim rezancima/knedlama",
+                                                                                "price": "3.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Goveđa supa s povrćem i domaćim rezancima/knedlama",
+                                                                                "price": "3.00 КМ"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Чорбе",
+                                        "items": [
+                                                            {
+                                                                                "name": "Ragu čorba",
+                                                                                "price": "5.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Riblja čorba",
+                                                                                "price": "5.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Celer čorba",
+                                                                                "price": "5.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Krem čorba od gljiva",
+                                                                                "description": "Vrganj i lisičarka",
+                                                                                "price": "5.00 КМ"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Кувана јела",
+                                        "items": [
+                                                            {
+                                                                                "name": "Pasulj sa kobasicom",
+                                                                                "price": "6.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Pasulj sa slaninom",
+                                                                                "price": "6.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Pasulj sa suvim rebrima",
+                                                                                "price": "6.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Prebranac",
+                                                                                "price": "5.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Čorbanac",
+                                                                                "price": "6.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Gulaš",
+                                                                                "price": "6.00 КМ"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Пасте",
+                                        "items": [
+                                                            {
+                                                                                "name": "Bolonjez",
+                                                                                "price": "6.50 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Karbonara",
+                                                                                "price": "6.50 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Losos",
+                                                                                "price": "7.50 КМ"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Салате",
+                                        "items": [
+                                                            {
+                                                                                "name": "Paradajz",
+                                                                                "description": "200 g",
+                                                                                "price": "3.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Krastavac",
+                                                                                "description": "200 g",
+                                                                                "price": "3.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Kupus",
+                                                                                "description": "200 g",
+                                                                                "price": "3.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Miješana",
+                                                                                "description": "300 g",
+                                                                                "price": "3.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Šopska",
+                                                                                "description": "200 g",
+                                                                                "price": "3.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Pečena paprika",
+                                                                                "description": "200 g",
+                                                                                "price": "3.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Urnebes",
+                                                                                "description": "200 g",
+                                                                                "price": "3.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Tartar",
+                                                                                "description": "100 g",
+                                                                                "price": "3.00 КМ"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Риба",
+                                        "items": [
+                                                            {
+                                                                                "name": "Potočna pastrmka",
+                                                                                "description": "1 kg",
+                                                                                "price": "35.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Gril lignje",
+                                                                                "description": "Lignje 500 g, prilog",
+                                                                                "price": "14.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Pohovane lignje",
+                                                                                "description": "Lignje 400 g, prilog",
+                                                                                "price": "14.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Punjene lignje",
+                                                                                "description": "Lignje 400 g, prilog",
+                                                                                "price": "15.00 КМ"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Оброк салате",
+                                        "items": [
+                                                            {
+                                                                                "name": "Cezar salata",
+                                                                                "price": "8.50 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Grčka salata",
+                                                                                "price": "7.50 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Tuna salata",
+                                                                                "price": "9.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Salata morski plodovi",
+                                                                                "price": "12.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Salata hobotnica",
+                                                                                "price": "13.50 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Salata \"Ona moja\"",
+                                                                                "price": "15.50 КМ"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Топла предјела",
+                                        "items": [
+                                                            {
+                                                                                "name": "Pohovani sir",
+                                                                                "price": "8.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Pohovane paprike sa sirom",
+                                                                                "price": "8.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Rižoto - piletina",
+                                                                                "price": "8.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Rižoto - morski plodovi",
+                                                                                "description": "Lignje, dagnje, škampi, kozice, riža",
+                                                                                "price": "10.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Grilovano povrće",
+                                                                                "description": "Mješavina povrća",
+                                                                                "price": "5.00 КМ"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Прилози",
+                                        "items": [
+                                                            {
+                                                                                "name": "Pomfrit",
+                                                                                "description": "200 g",
+                                                                                "price": "2.50 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Pekarski krompir",
+                                                                                "description": "250 g",
+                                                                                "price": "2.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Krompir salata",
+                                                                                "description": "250 g",
+                                                                                "price": "2.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Restovani krompir",
+                                                                                "description": "200 g",
+                                                                                "price": "2.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Dalmatinsko varivo",
+                                                                                "description": "250 g",
+                                                                                "price": "3.50 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Šampinjoni",
+                                                                                "description": "300 g",
+                                                                                "price": "5.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Riža i grašak",
+                                                                                "description": "250 g",
+                                                                                "price": "2.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Lepinja",
+                                                                                "description": "200 g",
+                                                                                "price": "1.00 КМ"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Десерт",
+                                        "items": [
+                                                            {
+                                                                                "name": "Palačinke marmelada",
+                                                                                "price": "3.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Palačinke nutela",
+                                                                                "price": "3.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Palačinke orasi i nutela",
+                                                                                "price": "4.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Palačinke plazma i nutela",
+                                                                                "price": "3.00 КМ"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Јела са роштиља",
+                                        "items": [
+                                                            {
+                                                                                "name": "Ćevapi - velika porcija",
+                                                                                "description": "200 g",
+                                                                                "price": "6.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Ćevapi - srednja porcija",
+                                                                                "description": "100 g",
+                                                                                "price": "4.50 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Ćevapi - mala porcija",
+                                                                                "description": "100 g",
+                                                                                "price": "3.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Rolovani ćevapi",
+                                                                                "description": "250 g",
+                                                                                "price": "7.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Pljeskavica",
+                                                                                "description": "200 g",
+                                                                                "price": "7.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Gurmanska pljeskavica",
+                                                                                "description": "250 g",
+                                                                                "price": "8.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Punjena pljeskavica",
+                                                                                "description": "250 g",
+                                                                                "price": "8.00 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Pljeskavica u kajmaku",
+                                                                                "description": "250 g",
+                                                                                "price": "8.50 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Mesni uštipci \"Ona moja\"",
+                                                                                "description": "200 g",
+                                                                                "price": "8.50 КМ"
+                                                            },
+                                                            {
+                                                                                "name": "Roštiljska kobasica u lepinji",
+                                                                                "description": "250 g",
+                                                                                "price": "6.00 КМ"
+                                                            }
+                                        ]
+                    }
+],
+                pica: [
+                    { category: "Topli Napici", items: [{ name: "Espresso", price: "2.50 КМ" }, { name: "Topla čokolada", price: "3.00 КМ" }, { name: "Nes", price: "2.50 КМ" }, { name: "Kapućino", price: "3.00 КМ" }, { name: "Kapućino aparat", price: "3.00 КМ" }, { name: "Latte Macchiato", price: "3.00 КМ" }, { name: "Čaj", price: "2.50 КМ" }] },
+                    { category: "Vode", items: [{ name: "Rosa", price: "2.50 КМ" }, { name: "Vivia 0.7", price: "5.00 КМ" }, { name: "Kisela voda 0.25", price: "2.50 КМ" }, { name: "Kisela voda 1L", price: "5.00 КМ" }] },
+                    { category: "Gazirani Sokovi", items: [{ name: "Coca Cola / Zero", price: "3.00 КМ" }, { name: "Fanta", price: "3.00 КМ" }, { name: "Bitter Lemon / Tonik", price: "3.00 КМ" }, { name: "Tandžarina", price: "3.00 КМ" }, { name: "Exotic Kruška / Limeta", price: "2.50 КМ" }, { name: "Orangina", price: "3.50 КМ" }] },
+                    { category: "Prirodni Sokovi", items: [{ name: "Cedevita Narandža / Limun", price: "3.00 КМ" }, { name: "Vitaminka (Jagoda, Jabuka, Borovnica, Breskva)", price: "3.00 КМ" }, { name: "Hidra", price: "3.00 КМ" }] },
+                    { category: "Cijeđeni Sokovi", items: [{ name: "Limunada", price: "3.50 КМ" }, { name: "Cijeđena narandža", price: "5.00 КМ" }, { name: "Cijeđeni mix", price: "5.00 КМ" }] },
+                    { category: "Žestoka Alkoholna Pića", items: [{ name: "Gorki list / Vlahov / Pelinkovac", price: "2.50 КМ" }, { name: "Stock / Jeger", price: "3.00 КМ" }] },
+                    { category: "Whiskey, Cognac & Gin", items: [{ name: "Jack Daniels", price: "3.50 КМ" }, { name: "Jameson", price: "4.00 КМ" }, { name: "Chivas", price: "6.00 КМ" }, { name: "Courvoisier", price: "7.00 КМ" }, { name: "Beefeater Gin", price: "4.00 КМ" }] },
+                    { category: "Rakije (Korijen)", items: [{ name: "Šljiva / Šljiva Barique", price: "3.00 КМ" }, { name: "Kruška / Kruška Barique", price: "3.00 КМ" }, { name: "Kajsija / Kajsija Barique", price: "3.00 КМ" }, { name: "Dunja / Dunja Barique", price: "3.00 КМ" }, { name: "Jabuka / Jabuka Barique", price: "3.00 КМ" }] },
+                    { category: "Pivo", items: [{ name: "Jelen / Becks / Staropramen", price: "3.00 КМ" }, { name: "Stella Artois / Bavaria / Aspal", price: "3.50 КМ" }, { name: "Stella točena 0.33", price: "3.50 КМ" }, { name: "Nikšićko tamno", price: "4.00 КМ" }] }
+                ]
+            },
+            en: {
+                jelovnik: [
+                    {
+                                        "category": "Cold Appetizers",
+                                        "items": [
+                                                            {
+                                                                                "name": "Cold plate \"Ona Moja\"",
+                                                                                "description": "Prosciutto, kulen, smoked pork neck, cheese, kajmak, buns",
+                                                                                "price": "20.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Prosciutto",
+                                                                                "description": "100 g",
+                                                                                "price": "7.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Kulen",
+                                                                                "description": "100 g",
+                                                                                "price": "5.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Smoked pork neck",
+                                                                                "description": "100 g",
+                                                                                "price": "5.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Smoked beef strips",
+                                                                                "price": "7.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Travnik cheese",
+                                                                                "description": "100 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Sheep milk cheese",
+                                                                                "description": "100 g",
+                                                                                "price": "5.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Goat milk cheese",
+                                                                                "description": "100 g",
+                                                                                "price": "8.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Kajmak",
+                                                                                "description": "100 g",
+                                                                                "price": "3.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Soups",
+                                        "items": [
+                                                            {
+                                                                                "name": "Chicken soup with vegetables and homemade noodles/dumplings",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Beef soup with vegetables and homemade noodles/dumplings",
+                                                                                "price": "3.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Stews",
+                                        "items": [
+                                                            {
+                                                                                "name": "Ragout stew",
+                                                                                "price": "5.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Fish stew",
+                                                                                "price": "5.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Celery stew",
+                                                                                "price": "5.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Creamy mushroom stew",
+                                                                                "description": "Porcini and chanterelle",
+                                                                                "price": "5.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Boiled Dishes",
+                                        "items": [
+                                                            {
+                                                                                "name": "Beans and sausage",
+                                                                                "price": "6.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Beans and bacon",
+                                                                                "price": "6.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Beans and smoked ribs",
+                                                                                "price": "6.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Prebranac (baked beans)",
+                                                                                "price": "5.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Corbanac (meat stew)",
+                                                                                "price": "6.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Goulash",
+                                                                                "price": "6.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Pasta",
+                                        "items": [
+                                                            {
+                                                                                "name": "Bolognese",
+                                                                                "price": "6.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Carbonara",
+                                                                                "price": "6.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Salmon",
+                                                                                "price": "7.50 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Salads",
+                                        "items": [
+                                                            {
+                                                                                "name": "Tomatoes",
+                                                                                "description": "200 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Cucumber",
+                                                                                "description": "200 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Cabbage",
+                                                                                "description": "200 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Mixed salad",
+                                                                                "description": "300 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Šopska",
+                                                                                "description": "200 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Roasted peppers",
+                                                                                "description": "200 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Urnebes",
+                                                                                "description": "Hot peppers and cheese, 200 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Tartar",
+                                                                                "description": "100 g",
+                                                                                "price": "3.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Fish Dishes",
+                                        "items": [
+                                                            {
+                                                                                "name": "Brown trout",
+                                                                                "description": "1 kg",
+                                                                                "price": "35.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Grilled squid",
+                                                                                "description": "Squid 500 g, side dish",
+                                                                                "price": "14.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Fried breaded squid",
+                                                                                "description": "Squid 400 g, side dish",
+                                                                                "price": "14.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Stuffed squid",
+                                                                                "description": "Squid 400 g, side dish",
+                                                                                "price": "15.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Whole-Meal Salads",
+                                        "items": [
+                                                            {
+                                                                                "name": "Caesar salad",
+                                                                                "price": "8.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Greek salad",
+                                                                                "price": "7.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Tuna salad",
+                                                                                "price": "9.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Seafood salad",
+                                                                                "price": "12.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Octopus salad",
+                                                                                "price": "13.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "\"Ona Moja\" salad",
+                                                                                "price": "15.50 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Warm Appetizers",
+                                        "items": [
+                                                            {
+                                                                                "name": "Fried breaded cheese",
+                                                                                "price": "8.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Fried breaded peppers with cheese",
+                                                                                "price": "8.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Chicken risotto",
+                                                                                "price": "8.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Seafood risotto",
+                                                                                "description": "Squid, mussels, langoustines, shrimps, rice",
+                                                                                "price": "10.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Grilled vegetables",
+                                                                                "description": "Mixed vegetables",
+                                                                                "price": "5.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Side Dishes",
+                                        "items": [
+                                                            {
+                                                                                "name": "French fries",
+                                                                                "description": "200 g",
+                                                                                "price": "2.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Baked potatoes",
+                                                                                "description": "250 g",
+                                                                                "price": "2.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Potato salad",
+                                                                                "description": "250 g",
+                                                                                "price": "2.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Braised potatoes",
+                                                                                "description": "200 g",
+                                                                                "price": "2.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Dalmatian stew",
+                                                                                "description": "250 g",
+                                                                                "price": "3.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Champignon mushrooms",
+                                                                                "description": "300 g",
+                                                                                "price": "5.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Rice and peas",
+                                                                                "description": "250 g",
+                                                                                "price": "2.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Flatbread",
+                                                                                "description": "200 g",
+                                                                                "price": "1.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Desserts",
+                                        "items": [
+                                                            {
+                                                                                "name": "Marmalade crepes",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Nutella crepes",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Walnuts & Nutella crepes",
+                                                                                "price": "4.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Plazma biscuits & Nutella crepes",
+                                                                                "price": "3.00 KM"
+                                                            }
+                                        ]
+                    },
+                    {
+                                        "category": "Grilled Meals",
+                                        "items": [
+                                                            {
+                                                                                "name": "Ćevapi - large portion",
+                                                                                "description": "200 g",
+                                                                                "price": "6.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Ćevapi - medium portion",
+                                                                                "description": "100 g",
+                                                                                "price": "4.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Ćevapi - small portion",
+                                                                                "description": "100 g",
+                                                                                "price": "3.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Wrapped ćevapi",
+                                                                                "description": "250 g",
+                                                                                "price": "7.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Hamburger",
+                                                                                "description": "200 g",
+                                                                                "price": "7.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Gourmet burger",
+                                                                                "description": "250 g",
+                                                                                "price": "8.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Stuffed burger",
+                                                                                "description": "250 g",
+                                                                                "price": "8.00 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Hamburger in kajmak",
+                                                                                "description": "250 g",
+                                                                                "price": "8.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Meat fritters \"Ona Moja\"",
+                                                                                "description": "200 g",
+                                                                                "price": "8.50 KM"
+                                                            },
+                                                            {
+                                                                                "name": "Grilled sausage in flatbread",
+                                                                                "description": "250 g",
+                                                                                "price": "6.00 KM"
+                                                            }
+                                        ]
+                    }
+],
+                pica: [
+                    { category: "Topli Napici", items: [{ name: "Espresso", price: "2.50 KM" }, { name: "Topla čokolada", price: "3.00 KM" }, { name: "Nes", price: "2.50 KM" }, { name: "Kapućino", price: "3.00 KM" }, { name: "Kapućino aparat", price: "3.00 KM" }, { name: "Latte Macchiato", price: "3.00 KM" }, { name: "Čaj", price: "2.50 KM" }] },
+                    { category: "Vode", items: [{ name: "Rosa", price: "2.50 KM" }, { name: "Vivia 0.7", price: "5.00 KM" }, { name: "Kisela voda 0.25", price: "2.50 KM" }, { name: "Kisela voda 1L", price: "5.00 KM" }] },
+                    { category: "Gazirani Sokovi", items: [{ name: "Coca Cola / Zero", price: "3.00 KM" }, { name: "Fanta", price: "3.00 KM" }, { name: "Bitter Lemon / Tonik", price: "3.00 KM" }, { name: "Tandžarina", price: "3.00 KM" }, { name: "Exotic Kruška / Limeta", price: "2.50 KM" }, { name: "Orangina", price: "3.50 KM" }] },
+                    { category: "Prirodni Sokovi", items: [{ name: "Cedevita Narandža / Limun", price: "3.00 KM" }, { name: "Vitaminka (Jagoda, Jabuka, Borovnica, Breskva)", price: "3.00 KM" }, { name: "Hidra", price: "3.00 KM" }] },
+                    { category: "Cijeđeni Sokovi", items: [{ name: "Limunada", price: "3.50 KM" }, { name: "Cijeđena narandža", price: "5.00 KM" }, { name: "Cijeđeni mix", price: "5.00 KM" }] },
+                    { category: "Žestoka Alkoholna Pića", items: [{ name: "Gorki list / Vlahov / Pelinkovac", price: "2.50 KM" }, { name: "Stock / Jeger", price: "3.00 KM" }] },
+                    { category: "Whiskey, Cognac & Gin", items: [{ name: "Jack Daniels", price: "3.50 KM" }, { name: "Jameson", price: "4.00 KM" }, { name: "Chivas", price: "6.00 KM" }, { name: "Courvoisier", price: "7.00 KM" }, { name: "Beefeater Gin", price: "4.00 KM" }] },
+                    { category: "Rakije (Korijen)", items: [{ name: "Šljiva / Šljiva Barique", price: "3.00 KM" }, { name: "Kruška / Kruška Barique", price: "3.00 KM" }, { name: "Kajsija / Kajsija Barique", price: "3.00 KM" }, { name: "Dunja / Dunja Barique", price: "3.00 KM" }, { name: "Jabuka / Jabuka Barique", price: "3.00 KM" }] },
+                    { category: "Pivo", items: [{ name: "Jelen / Becks / Staropramen", price: "3.00 KM" }, { name: "Stella Artois / Bavaria / Aspal", price: "3.50 KM" }, { name: "Stella točena 0.33", price: "3.50 KM" }, { name: "Nikšićko tamno", price: "4.00 KM" }] }
+                ]
+            }
+        };
+
+        // Localized drink menu labels (keeps same prices/data, localizes visible text)
+        const drinkText = {
+            cyr: {
+                "Topli Napici": "Топли напици", "Vode": "Воде", "Gazirani Sokovi": "Газирани сокови", "Prirodni Sokovi": "Природни сокови", "Cijeđeni Sokovi": "Цијеђени сокови", "Žestoka Alkoholna Pića": "Жестока алкохолна пића", "Whiskey, Cognac & Gin": "Виски, коњак и џин", "Rakije (Korijen)": "Ракије (Коријен)", "Pivo": "Пиво",
+                "Espresso": "Еспресо", "Topla čokolada": "Топла чоколада", "Nes": "Нес", "Kapućino": "Капућино", "Kapućino aparat": "Капућино апарат", "Latte Macchiato": "Лате макијато", "Čaj": "Чај",
+                "Rosa": "Роса", "Vivia 0.7": "Вивиа 0.7", "Kisela voda 0.25": "Кисела вода 0.25", "Kisela voda 1L": "Кисела вода 1L",
+                "Coca Cola / Zero": "Coca Cola / Zero", "Fanta": "Fanta", "Bitter Lemon / Tonik": "Bitter Lemon / Тоник", "Tandžarina": "Танџарина", "Exotic Kruška / Limeta": "Exotic Крушка / Лимета", "Orangina": "Orangina",
+                "Cedevita Narandža / Limun": "Цедевита наранџа / лимун", "Vitaminka (Jagoda, Jabuka, Borovnica, Breskva)": "Витаминка (јагода, јабука, боровница, бресква)", "Hidra": "Хидра",
+                "Limunada": "Лимунада", "Cijeđena narandža": "Цијеђена наранџа", "Cijeđeni mix": "Цијеђени микс",
+                "Gorki list / Vlahov / Pelinkovac": "Горки лист / Влахов / Пелинковац", "Stock / Jeger": "Stock / Јегер",
+                "Jack Daniels": "Jack Daniels", "Jameson": "Jameson", "Chivas": "Chivas", "Courvoisier": "Courvoisier", "Beefeater Gin": "Beefeater Gin",
+                "Šljiva / Šljiva Barique": "Шљива / шљива барик", "Kruška / Kruška Barique": "Крушка / крушка барик", "Kajsija / Kajsija Barique": "Кајсија / кајсија барик", "Dunja / Dunja Barique": "Дуња / дуња барик", "Jabuka / Jabuka Barique": "Јабука / јабука барик",
+                "Jelen / Becks / Staropramen": "Јелен / Becks / Staropramen", "Stella Artois / Bavaria / Aspal": "Stella Artois / Bavaria / Aspal", "Stella točena 0.33": "Stella точена 0.33", "Nikšićko tamno": "Никшићко тамно"
+            },
+            en: {
+                "Topli Napici": "Hot drinks", "Vode": "Water", "Gazirani Sokovi": "Carbonated drinks", "Prirodni Sokovi": "Fruit juices", "Cijeđeni Sokovi": "Fresh squeezed juices", "Žestoka Alkoholna Pića": "Spirits", "Whiskey, Cognac & Gin": "Whiskey, Cognac & Gin", "Rakije (Korijen)": "Fruit brandies (Korijen)", "Pivo": "Beer",
+                "Espresso": "Espresso", "Topla čokolada": "Hot chocolate", "Nes": "Nescafé", "Kapućino": "Cappuccino", "Kapućino aparat": "Machine cappuccino", "Latte Macchiato": "Latte macchiato", "Čaj": "Tea",
+                "Rosa": "Rosa", "Vivia 0.7": "Vivia 0.7", "Kisela voda 0.25": "Sparkling water 0.25", "Kisela voda 1L": "Sparkling water 1L",
+                "Coca Cola / Zero": "Coca-Cola / Zero", "Fanta": "Fanta", "Bitter Lemon / Tonik": "Bitter Lemon / Tonic", "Tandžarina": "Tangerine", "Exotic Kruška / Limeta": "Exotic Pear / Lime", "Orangina": "Orangina",
+                "Cedevita Narandža / Limun": "Cedevita Orange / Lemon", "Vitaminka (Jagoda, Jabuka, Borovnica, Breskva)": "Vitaminka (strawberry, apple, blueberry, peach)", "Hidra": "Hydra",
+                "Limunada": "Lemonade", "Cijeđena narandža": "Fresh orange juice", "Cijeđeni mix": "Fresh mixed juice",
+                "Gorki list / Vlahov / Pelinkovac": "Gorki list / Vlahov / Pelinkovac", "Stock / Jeger": "Stock / Jäger",
+                "Jack Daniels": "Jack Daniel's", "Jameson": "Jameson", "Chivas": "Chivas", "Courvoisier": "Courvoisier", "Beefeater Gin": "Beefeater Gin",
+                "Šljiva / Šljiva Barique": "Plum / Plum Barrique", "Kruška / Kruška Barique": "Pear / Pear Barrique", "Kajsija / Kajsija Barique": "Apricot / Apricot Barrique", "Dunja / Dunja Barique": "Quince / Quince Barrique", "Jabuka / Jabuka Barique": "Apple / Apple Barrique",
+                "Jelen / Becks / Staropramen": "Jelen / Beck's / Staropramen", "Stella Artois / Bavaria / Aspal": "Stella Artois / Bavaria / Aspal", "Stella točena 0.33": "Stella draft 0.33", "Nikšićko tamno": "Nikšićko dark"
+            }
+        };
+
+        function localizeDrinkText(text) {
+            const dict = drinkText[currentLang] || {};
+            return dict[text] || text;
+        }
+
+        function localizeDrinkSections(data) {
+            if (currentTab !== 'pice' || currentLang === 'lat') return data || [];
+            return (data || []).map(section => ({
+                ...section,
+                category: localizeDrinkText(section.category),
+                items: section.items.map(item => ({
+                    ...item,
+                    name: localizeDrinkText(item.name),
+                    description: item.description ? localizeDrinkText(item.description) : item.description,
+                    price: currentLang === 'cyr' ? item.price.replace(/KM/g, 'КМ') : item.price
+                }))
+            }));
+        }
+
+        // Render Menu
+        function renderMenu(data) {
+            data = localizeDrinkSections(data);
+            const container = document.getElementById('menu-container');
+            const grid = document.createElement('div');
+            grid.className = 'menu-grid';
+
+            data.forEach((section, i) => {
+                const card = document.createElement('div');
+                card.className = 'menu-card';
+                card.style.transitionDelay = `${i * 0.1}s`;
+
+                let itemsHtml = '';
+                section.items.forEach(item => {
+                    itemsHtml += `
+                        <div class="menu-item">
+                            <div class="menu-item-header">
+                                <span class="menu-item-name">${item.name}</span>
+                                <div class="menu-item-dots"></div>
+                                <span class="menu-item-price">${item.price}</span>
+                            </div>
+                            ${item.description ? `<p class="menu-item-desc">${item.description}</p>` : ''}
+                        </div>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="menu-card-header">
+                        <h3>${section.category}</h3>
+                    </div>
+                    <div class="menu-card-body">
+                        ${itemsHtml}
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+
+            container.innerHTML = '';
+            container.appendChild(grid);
+
+            // Animate cards after render
+            setTimeout(() => {
+                document.querySelectorAll('.menu-card').forEach((card, i) => {
+                    setTimeout(() => card.classList.add('visible'), i * 100);
+                });
+            }, 100);
+        }
+
+        // Switch Tab
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`tab-${tab}`).classList.add('active');
+
+            if (tab === 'jelovnik') {
+                renderMenu(menusData[currentLang].jelovnik);
+            } else if (tab === 'pice') {
+                renderMenu(menusData[currentLang].pica);
+            } else if (tab === 'galerija') {
+                renderGallery();
+            }
+        }
+
+        // Set Language
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+
+            // Hero
+            document.getElementById('hero-title').textContent = staticI18n[lang].brand;
+            document.querySelector('.loader-text').textContent = staticI18n[lang].loader_brand;
+            document.getElementById('hero-text').innerHTML = staticI18n[lang].hero;
+            document.getElementById('about-title').innerText = staticI18n[lang].about_title;
+            document.getElementById('about-text').innerText = staticI18n[lang].about_sub;
+            document.getElementById('menu-title').innerText = staticI18n[lang].menu_title;
+            document.getElementById('menu-subtitle').innerText = staticI18n[lang].menu_subtitle;
+            document.getElementById('hero-menu-cta').innerText = staticI18n[lang].cta_menu;
+            document.getElementById('hero-reserve-cta').innerText = staticI18n[lang].cta_reserve;
+            document.getElementById('hero-eyebrow').innerText = staticI18n[lang].eyebrow;
+            document.querySelectorAll('#hero-badges span').forEach((span, i) => {
+                span.innerText = staticI18n[lang].badges[i] || span.innerText;
+            });
+
+            // Tabs
+            document.getElementById('tab-jelovnik').innerText = staticI18n[lang].tab_jelovnik;
+            document.getElementById('tab-pice').innerText = staticI18n[lang].tab_pice;
+            document.getElementById('tab-galerija').innerText = staticI18n[lang].tab_galerija;
+
+            // Footer
+            document.getElementById('footer-brand').innerText = staticI18n[lang].loader_brand;
+            document.getElementById('footer-tagline').innerText = staticI18n[lang].footer_sub;
+            document.getElementById('review-label').innerText = staticI18n[lang].review_text;
+
+            // Reservation
+            const resText = staticI18n[lang].reservations;
+            document.getElementById('reservation-title').textContent = resText;
+            document.getElementById('reservation-phones').innerHTML = `
+                <a href="tel:065381124" class="reservation-phone">065 381-124</a>
+            `;
+
+            // Re-render menu
+            switchTab(currentTab);
+        }
+
+        // Scroll Animations
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+        }
+
+        // Smooth reveal on DOM ready or load
+        const finishLoading = () => {
+            const loader = document.getElementById('loader');
+            if (!loader || loader.classList.contains('hidden')) return;
+            loader.classList.add('hidden');
+        };
+
+        const initializePage = () => {
+            initScrollAnimations();
+            setLanguage('cyr');
+            switchTab('jelovnik');
+            finishLoading();
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(initializePage, 300);
+        });
+
+        window.addEventListener('load', () => {
+            setTimeout(finishLoading, 800);
+        });
+
+        // Fallback hide if load event never fires due external resource stall
+        setTimeout(finishLoading, 5000);
+
+        // First user click starts tamburasi music at 50% volume
+        const enableFirstClickMusic = () => {
+            let started = false;
+            const startMusic = () => {
+                if (started) return;
+                started = true;
+                const audio = new Audio('audio/tamburasi.mp3');
+                audio.volume = 0.5;
+                audio.loop = true;
+                window.onaMojaMusic = audio;
+                audio.play().catch(() => { started = false; });
+            };
+            document.addEventListener('click', startMusic, { once: true, passive: true });
+        };
+        enableFirstClickMusic();
+
+        // Parallax effect for hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroBg = document.querySelector('.hero-bg');
+            if (heroBg) {
+                heroBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Elfsight watermark removal
+        const removeElfsightWatermark = () => {
+            const selectors = ['a[href*="elfsight.com"]', '.eapps-link'];
+            selectors.forEach(selector => {
+                document.querySelectorAll(selector).forEach(el => {
+                    el.style.display = 'none';
+                    el.remove();
+                });
+            });
+            const widgetContainer = document.querySelector('.elfsight-app-a9264053-a868-468d-8655-cf4835ee67bd');
+            if (widgetContainer && widgetContainer.shadowRoot) {
+                selectors.forEach(selector => {
+                    widgetContainer.shadowRoot.querySelectorAll(selector).forEach(el => {
+                        el.style.display = 'none';
+                        el.remove();
+                    });
+                });
+            }
+        };
+        setInterval(removeElfsightWatermark, 500);
+
+        if (location.search.includes('admin=1')) {
+            const ADMIN_PASS = 'rustiqe2026';
+            const state = {
+                lang: 'lat',
+                tab: 'jelovnik',
+                data: { meni: { lat:{jelovnik:[],pica:[]}, cyr:{jelovnik:[],pica:[]}, en:{jelovnik:[],pica:[]} }, galerija:[] }
+            };
+            const load = () => {
+                const s = localStorage.getItem('rustiqe_site'); if (s) try { state.data = JSON.parse(s); } catch {}
+            };
+            const save = () => localStorage.setItem('rustiqe_site', JSON.stringify(state.data));
+            const status = (msg, ok=true) => {
+                const el = document.getElementById('admin-status'); if (!el) return;
+                el.textContent = msg;
+                el.className = ok ? 'rSuccess' : 'rError';
+                setTimeout(()=> el.className='rStatus', 2500);
+            };
+            const esc = s => String(s).replace(/[&<>'"\\]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;','\\':'&#92;'}[c]));
+            const updateItem = (lang, tab, ci, ii, field, val) => { if (state.data.meni[lang][tab][ci] && state.data.meni[lang][tab][ci].items[ii]) { state.data.meni[lang][tab][ci].items[ii][field] = val; save(); } };
+            const renderMenu = () => {
+                const data = state.data.meni[state.lang]?.[state.tab] || [];
+                const list = document.getElementById('admin-menu-list'); if (!list) return;
+                list.innerHTML = data.map((cat, ci) => `<div class="rCard"><div class="rRow"><strong contenteditable="true" data-cat="${ci}" style="flex:1;min-width:0;">${esc(cat.category)}</strong> <button class="rBtnDanger" data-act="delCat" data-i="${ci}">×</button></div>` + cat.items.map((it, ii) => `<div class="rItem"><input class="rInp" value="${esc(it.name)}" oninput="updateItem('${state.lang}','${state.tab}',${ci},${ii},'name',this.value)" placeholder="Naziv"/><input class="rInp" value="${esc(it.price)}" oninput="updateItem('${state.lang}','${state.tab}',${ci},${ii},'price',this.value)" placeholder="Cena" style="max-width:110px"/><input class="rInp" value="${esc(it.description||'')}" oninput="updateItem('${state.lang}','${state.tab}',${ci},${ii},'description',this.value)" placeholder="Opis" style="max-width:160px"/><button class="rBtnDanger" data-act="delItem" data-ci="${ci}" data-ii="${ii}">×</button></div>`).join('') + `</div>`).join('');
+            };
+            const renderGallery = () => {
+                const grid = document.getElementById('admin-gallery-grid'); if (!grid) return;
+                grid.innerHTML = state.data.galerija.map((src, i) => `<div class="rGalItem"><img src="${src}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><rect width=%22200%22 height=%22200%22 fill=%22%23eee%22/><text x=%22100%22 y=%22105%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2212%22>?</text></svg>';"/><button class="rBtnDanger" data-act="delImg" data-i="${i}">×</button></div>`).join('');
+            };
+            document.addEventListener('input', e => {
+                const t = e.target;
+                if (!t.dataset.f) return;
+                const it = state.data.meni[state.lang][state.tab][+t.dataset.ci].items[+t.dataset.ii];
+                if (t.dataset.f === 'n') it.name = t.value; else if (t.dataset.f === 'p') it.price = t.value; else if (t.dataset.f === 'd') it.description = t.value;
+                save();
+            });
+            document.addEventListener('click', e => {
+                const b = e.target.closest('button'); if (!b) return;
+                const act = b.dataset.act;
+                if (act === 'delCat') { if (!confirm('Obrisati kategoriju?')) return; state.data.meni[state.lang][state.tab].splice(+b.dataset.i,1); renderMenu(); save(); }
+                if (act === 'delItem') { state.data.meni[state.lang][state.tab][+b.dataset.ci].items.splice(+b.dataset.ii,1); renderMenu(); save(); }
+                if (act === 'delImg') { state.data.galerija.splice(+b.dataset.i,1); renderGallery(); save(); }
+                if (act === 'addCat') { const n = prompt('Naziv kategorije:'); if (n) { state.data.meni[state.lang][state.tab].push({category:n, items:[]}); renderMenu(); save(); } }
+                if (act === 'addItem') { const sel = document.getElementById('admin-cat-select'); const idx = sel && sel.value; const n = prompt('Naziv:'); if (!n) return; const p = prompt('Cena (po izboru):') || ''; const d = prompt('Opis (po izboru):') || ''; if (!state.data.meni[state.lang][state.tab].length || idx === '') state.data.meni[state.lang][state.tab].push({category:'Nova', items:[]}); state.data.meni[state.lang][state.tab][(idx && idx !== '') ? +idx : 0].items.push({name:n, price:p, description:d}); renderMenu(); save(); }
+                if (act === 'addImg') { const u = prompt('URL slike (za više odvoji zarezom):'); if (!u) return; u.split(',').map(x=>x.trim()).filter(Boolean).forEach(v => state.data.galerija.push(v)); renderGallery(); save(); status('Slike dodate'); }
+                if (act === 'imp') document.getElementById('admin-file').click();
+                if (act === 'exp') { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(state.data,null,2)], {type:'application/json'})); a.download = 'site-data.json'; a.click(); status('JSON exportovan'); }
+            });
+            document.addEventListener('change', e => {
+                if (e.target.id === 'admin-lang') { state.lang = e.target.value; renderMenu(); }
+                if (e.target.id === 'admin-tab') { state.tab = e.target.value; renderMenu(); }
+                if (e.target.id === 'admin-cat-select') { /* just selection */ }
+            });
+            window.addEventListener('dragover', e => { const g = e.target.closest('#admin-gallery-grid'); if (g) e.preventDefault(); });
+            window.addEventListener('drop', e => { const g = e.target.closest('#admin-gallery-grid'); if (!g) return; e.preventDefault(); const i = [...g.querySelectorAll('.rGalItem')].indexOf(document.elementFromPoint(e.clientX, e.clientY)); if (i >= 0 && e.dataTransfer) { const m = e.dataTransfer.getData('text/plain'); const el = g.querySelector(`[data-idx="${m}"]`); if (el) el.parentNode.insertBefore(el, g.children[i]); const arr = [...g.querySelectorAll('.rGalItem')].map(x => x.querySelector('img').src); state.data.galerija = arr; save(); } });
+            const startAdmin = () => {
+                const ui = document.createElement('div');
+                ui.id = 'admin-ui';
+                ui.innerHTML = `
+<div id="admin-bar" style="position:fixed;top:10px;right:10px;z-index:99999;background:#1a0f0a;color:#f9f6f0;padding:12px 16px;border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.35);font-family:Inter,system-ui,sans-serif;min-width:420px;max-width:calc(100vw - 20px);">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+    <strong style="font-size:14px;letter-spacing:.08em;">🔐 Admin</strong>
+    <select id="admin-lang" style="min-width:70px"><option value="lat">LAT</option><option value="cyr">ĆIR</option><option value="en">EN</option></select>
+    <select id="admin-tab" style="min-width:120px"><option value="jelovnik">Jelovnik</option><option value="pica">Pića</option></select>
+    <select id="admin-cat-select" style="min-width:120px"></select>
+    <button data-act="addCat" class="rBtn" style="background:#d4a373;color:#1a0f0a;padding:8px 12px;border:none;border-radius:8px;cursor:pointer;">+ Kat.</button>
+    <button data-act="addItem" class="rBtn" style="background:#8b5a2b;color:white;padding:8px 12px;border:none;border-radius:8px;cursor:pointer;">+ Stavka</button>
+    <button data-act="addImg" class="rBtn" style="background:#3e2723;color:#f9f6f0;padding:8px 12px;border:none;border-radius:8px;cursor:pointer;">+ Slika</button>
+    <button data-act="imp" class="rBtn" style="background:#6b7280;color:white;padding:8px 12px;border:none;border-radius:8px;cursor:pointer;">Import</button>
+    <button data-act="exp" class="rBtn" style="background:#6b7280;color:white;padding:8px 12px;border:none;border-radius:8px;cursor:pointer;">Export</button>
+    <input type="file" id="admin-file" accept="application/json" style="display:none"/>
+  </div>
+  <div id="admin-status" class="rStatus" style="margin-top:8px;font-size:12px;"></div>
+  <div style="margin-top:12px;max-height:50vh;overflow:auto;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px;">
+    <div id="admin-menu-list" style="display:grid;gap:10px;"></div>
+    <div style="margin-top:10px;">
+      <div style="font-weight:700;color:#d4a373;margin-bottom:6px;">Galerija</div>
+      <div id="admin-gallery-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;"></div>
+    </div>
+  </div>
+</div>
+<style>
+#admin-ui * { box-sizing: border-box; }
+#admin-ui .rBtn { font-weight:500; }
+#admin-ui .rBtnDanger { background:#dc2626;color:white;border:none;border-radius:6px;width:24px;height:24px;cursor:pointer;font-size:14px;padding:0; }
+#admin-ui .rItem { display:flex;gap:6px;align-items:center;padding:6px;background:rgba(255,255,255,.04);border-radius:8px; }
+#admin-ui .rInp { background:rgba(255,255,255,.06);color:#f9f6f0;border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:6px 8px;font-size:13px;flex:1;min-width:0; }
+#admin-ui .rCard { background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px; }
+#admin-ui .rRow { display:flex;justify-content:space-between;align-items:center;gap:8px; }
+#admin-ui .rGalItem { position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.08);cursor:grab; }
+#admin-ui .rGalItem img { width:100%;height:100%;object-fit:cover;display:block; }
+#admin-ui .rGalItem button.rBtnDanger { position:absolute;top:3px;right:3px; }
+#admin-ui .rStatus { color:#9ca3af;font-size:12px;min-height:16px; }
+#admin-ui .rSuccess { color:#86efac; }
+#admin-ui .rError { color:#fca5a5; }
+</style>
+`;
+                document.body.appendChild(ui);
+                const login = () => {
+                    const p = prompt('Admin šifra:');
+                    if (p !== ADMIN_PASS) { alert('Pogrešna šifra'); return; }
+                    ui.querySelector('#admin-bar').style.display = 'block';
+                    load(); renderMenu(); renderGallery();
+                    const catSel = document.getElementById('admin-cat-select');
+                    const refreshCats = () => {
+                        const cur = catSel.value;
+                        catSel.innerHTML = '<option value="">-- Kategorija --</option>' + (state.data.meni[state.lang]?.[state.tab]||[]).map((c,i)=>`<option value="${i}">${esc(c.category)}</option>`).join('');
+                        if (state.data.meni[state.lang]?.[state.tab].some((_,i)=>String(i)===cur)) catSel.value = cur;
+                    };
+                    refreshCats();
+                    const observer = new MutationObserver(refreshCats);
+                    observer.observe(document.getElementById('admin-menu-list'), {childList:true});
+                };
+                ui.querySelector('#admin-bar').style.display = 'none';
+                login();
+                document.getElementById('admin-file').addEventListener('change', e => {
+                    const f = e.target.files[0]; if (!f) return; const r = new FileReader();
+                    r.onload = ev => { try { state.data = JSON.parse(ev.target.result); save(); renderMenu(); renderGallery(); status('Import OK'); } catch { alert('Neispravan JSON'); } } ; r.readAsText(f);
+                });
+            };
+            startAdmin();
+        }
+    </script>
+</body>
+</html>
