@@ -3152,9 +3152,42 @@
             }));
         }
 
+
+
+        // Cyrillic food menu transliteration for items still stored in Latin script
+        function toSerbianCyrillic(text) {
+            if (!text) return text;
+            const digraphs = [
+                ['DŽ', 'Џ'], ['Dž', 'Џ'], ['dž', 'џ'],
+                ['LJ', 'Љ'], ['Lj', 'Љ'], ['lj', 'љ'],
+                ['NJ', 'Њ'], ['Nj', 'Њ'], ['nj', 'њ']
+            ];
+            let out = String(text);
+            digraphs.forEach(([latin, cyr]) => { out = out.split(latin).join(cyr); });
+            const map = {
+                A:'А', B:'Б', C:'Ц', Č:'Ч', Ć:'Ћ', D:'Д', Đ:'Ђ', E:'Е', F:'Ф', G:'Г', H:'Х', I:'И', J:'Ј', K:'К', L:'Л', M:'М', N:'Н', O:'О', P:'П', R:'Р', S:'С', Š:'Ш', T:'Т', U:'У', V:'В', Z:'З', Ž:'Ж',
+                a:'а', b:'б', c:'ц', č:'ч', ć:'ћ', d:'д', đ:'ђ', e:'е', f:'ф', g:'г', h:'х', i:'и', j:'ј', k:'к', l:'л', m:'м', n:'н', o:'о', p:'п', r:'р', s:'с', š:'ш', t:'т', u:'у', v:'в', z:'з', ž:'ж'
+            };
+            return out.replace(/[A-Za-zČĆĐŠŽčćđšž]/g, ch => map[ch] || ch);
+        }
+
+        function localizeFoodSections(data) {
+            if (currentTab !== 'jelovnik' || currentLang !== 'cyr') return data || [];
+            return (data || []).map(section => ({
+                ...section,
+                category: toSerbianCyrillic(section.category),
+                items: section.items.map(item => ({
+                    ...item,
+                    name: toSerbianCyrillic(item.name),
+                    description: item.description ? toSerbianCyrillic(item.description) : item.description,
+                    price: item.price ? item.price.replace(/KM/g, 'КМ') : item.price
+                }))
+            }));
+        }
+
         // Render Menu
         function renderMenu(data) {
-            data = localizeDrinkSections(data);
+            data = localizeFoodSections(localizeDrinkSections(data));
             const container = document.getElementById('menu-container');
             const grid = document.createElement('div');
             grid.className = 'menu-grid';
