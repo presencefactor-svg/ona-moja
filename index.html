@@ -1863,15 +1863,22 @@
 
         @media (max-width: 640px) {
             .hero {
-                min-height: 82vh !important;
-                padding: 5.2rem .9rem 1.5rem !important;
-                align-items: flex-end !important;
+                min-height: auto !important;
+                padding: calc(5.2rem + min(56vw, 240px)) .9rem 1.35rem !important;
+                align-items: flex-start !important;
+                background: #170704 !important;
             }
             .hero::before { inset: 10px !important; border-radius: 22px !important; }
-            .hero-bg { background-position: center top !important; }
+            .hero-bg {
+                background:
+                    linear-gradient(180deg, rgba(10,3,2,.08) 0%, rgba(10,3,2,.03) 44%, rgba(10,3,2,.62) 100%),
+                    url('images/restoran-doboj-onamoja.png') center 78px / calc(100vw - 22px) auto no-repeat !important;
+                background-color: #170704 !important;
+                filter: saturate(1.08) contrast(1.03) brightness(.98) !important;
+            }
             .hero-content.hero-layout {
-                min-height: 58vh !important;
-                align-items: flex-end !important;
+                min-height: auto !important;
+                align-items: flex-start !important;
                 justify-content: center !important;
                 padding: 0 .65rem !important;
             }
