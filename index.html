@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ona Moja | Restoran & Meni</title>
-    <meta name="description" content="Ona Moja - restoran u Doboju sa jelima, pićima i domaćom kuhinjom.">
+    <title>Kafana Ona moja | Restoran Doboj</title>
+    <meta name="description" content="Kafana Ona Moja je restoran u Doboju na adresi Vojvode Sinđelića 16. Domaća kuhinja, roštilj, čorbe, riba, vina i kafanska atmosfera u centru Doboja.">
+    <link rel="canonical" href="https://restorandoboj.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://restorandoboj.com/">
+    <meta property="og:title" content="Kafana Ona moja | Restoran Doboj">
+    <meta property="og:description" content="Kafana Ona Moja je restoran u Doboju na adresi Vojvode Sinđelića 16. Domaća kuhinja, roštilj, čorbe, riba, vina i kafanska atmosfera u centru Doboja.">
+    <meta property="og:image" content="https://restorandoboj.com/images/restoran-doboj-onamoja.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kafana Ona moja | Restoran Doboj">
+    <meta name="twitter:description" content="Kafana Ona Moja je restoran u Doboju na adresi Vojvode Sinđelića 16. Domaća kuhinja, roštilj, čorbe, riba, vina i kafanska atmosfera u centru Doboja.">
     <link rel="icon" type="image/png" href="images/logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Roboto+Slab:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1853,13 +1862,123 @@
         }
 
         @media (max-width: 640px) {
-            .hero { min-height: 82vh !important; padding: 5.2rem .9rem 1.5rem !important; }
+            .hero {
+                min-height: 82vh !important;
+                padding: 5.2rem .9rem 1.5rem !important;
+                align-items: flex-end !important;
+            }
             .hero::before { inset: 10px !important; border-radius: 22px !important; }
             .hero-bg { background-position: center top !important; }
-            .hero-copy { padding: .8rem !important; border-radius: 20px !important; gap: .45rem !important; }
-            .hero-badges span { font-size: .6rem !important; padding: .32rem .5rem !important; }
-            .hero-actions .premium-btn { width: auto !important; min-width: 118px !important; }
-            .hero-subtitle { white-space: normal !important; }
+            .hero-content.hero-layout {
+                min-height: 58vh !important;
+                align-items: flex-end !important;
+                justify-content: center !important;
+                padding: 0 .65rem !important;
+            }
+            .hero-copy {
+                width: min(390px, 94vw) !important;
+                max-width: min(390px, 94vw) !important;
+                padding: 1rem !important;
+                border-radius: 20px !important;
+                gap: .58rem !important;
+                flex-direction: column !important;
+                background: linear-gradient(135deg, rgba(42,3,5,.78), rgba(95,7,11,.58)) !important;
+            }
+            .kafana-label,
+            .hero-title,
+            .hero-badges,
+            .hero-layout .hero-subtitle,
+            .hero-subtitle {
+                display: flex !important;
+            }
+            .kafana-label {
+                margin: 0 auto !important;
+                font-size: .68rem !important;
+                padding: .48rem .78rem !important;
+                letter-spacing: .1em !important;
+                white-space: nowrap !important;
+            }
+            .hero-title {
+                display: block !important;
+                margin: 0 !important;
+                font-size: clamp(2.1rem, 13vw, 3.4rem) !important;
+                line-height: .95 !important;
+                color: #fffaf2 !important;
+                letter-spacing: .08em !important;
+                text-align: center !important;
+                white-space: nowrap !important;
+            }
+            .hero-badges {
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+                gap: .35rem !important;
+                margin: 0 !important;
+            }
+            .hero-badges span { font-size: .58rem !important; padding: .32rem .5rem !important; }
+            .hero-subtitle {
+                margin: .05rem auto .2rem !important;
+                max-width: 300px !important;
+                font-size: 1.05rem !important;
+                line-height: 1.18 !important;
+                color: #fffaf2 !important;
+                text-align: center !important;
+                white-space: normal !important;
+            }
+            .hero-actions {
+                flex-wrap: wrap !important;
+                gap: .55rem !important;
+            }
+            .hero-actions .premium-btn { width: auto !important; min-width: 126px !important; padding: .72rem .88rem !important; font-size: .68rem !important; }
+        }
+
+        /* Ona Moja about section polish */
+        .about-section-visible {
+            display: block !important;
+            opacity: 1 !important;
+            transform: none !important;
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+        }
+        #about {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+            padding: 5.2rem 0 4.2rem !important;
+            background:
+                radial-gradient(circle at 12% 18%, rgba(161,18,24,.12), transparent 28%),
+                linear-gradient(180deg, #fff8ea 0%, #f5ebe0 100%) !important;
+        }
+        #about .section-card {
+            max-width: 1080px !important;
+            margin: 0 auto !important;
+            border: 1px solid rgba(139,17,24,.16) !important;
+            box-shadow: 0 24px 90px rgba(55,16,10,.14) !important;
+            position: relative !important;
+            overflow: hidden !important;
+        }
+        #about .section-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 88% 10%, rgba(212,163,115,.20), transparent 28%),
+                linear-gradient(135deg, rgba(255,255,255,.60), transparent 45%);
+            pointer-events: none;
+        }
+        #about .section-card > * { position: relative; z-index: 1; }
+        #about-text {
+            max-width: 840px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            font-size: clamp(1.08rem, 2vw, 1.35rem) !important;
+            font-style: normal !important;
+        }
+        .about-feature-card {
+            background: rgba(255,250,242,.72) !important;
+            border: 1px solid rgba(139,17,24,.12) !important;
+            border-radius: 22px !important;
+            box-shadow: 0 14px 36px rgba(55,16,10,.08) !important;
         }
 
         /* Improved readable menu layout: wide category blocks, balanced item columns */
@@ -2040,39 +2159,37 @@
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="section-warm scroll-animate" id="about">
-        <div class="container mx-auto px-4 max-w-5xl text-center">
-            <div class="section-card">
-                <h2 id="about-title" class="font-serif text-4xl md:text-5xl font-bold text-rustiqe-dark mb-6">O nama</h2>
-                <span class="decorative-line"></span>
-                <p id="about-text" class="font-serif text-xl md:text-2xl text-gray-700 leading-relaxed italic">
-                    "Spoj klasike i karaktera — gdje svaki obrok postane priča, a svaki trenutak ostane u sjećanju."
-                </p>
-                <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-                    <div class="p-4">
-                        <div class="text-4xl mb-2">🍷</div>
-                        <h4 class="font-bold text-rustiqe-dark mb-1">Pozorište ukusa</h4>
-                        <p class="text-sm text-gray-600">Pažljivo birani sastojci i autentični recepti</p>
-                    </div>
-                    <div class="p-4">
-                        <div class="text-4xl mb-2">🕯️</div>
-                        <h4 class="font-bold text-rustiqe-dark mb-1">Atmosfera</h4>
-                        <p class="text-sm text-gray-600">Rustični šarm i toplina ambijenta</p>
-                    </div>
-                    <div class="p-4">
-                        <div class="text-4xl mb-2">🥂</div>
-                        <h4 class="font-bold text-rustiqe-dark mb-1">Uživanje</h4>
-                        <p class="text-sm text-gray-600">Doživljaj koji ostaje u sećanju</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Menu Section -->
     <section class="py-20 bg-gradient-to-b from-rustiqe-light to-rustiqe-warm" id="menu">
         <div class="container mx-auto px-4 max-w-7xl">
+            <!-- About Section: intentionally inside #menu so the hero CTA shows it before menu title -->
+            <div id="about" class="about-section-visible text-center mb-16 scroll-animate">
+                <div class="section-card">
+                    <h2 id="about-title" class="font-serif text-4xl md:text-5xl font-bold text-rustiqe-dark mb-6">O nama</h2>
+                    <span class="decorative-line"></span>
+                    <p id="about-text" class="font-serif text-xl md:text-2xl text-gray-700 leading-relaxed italic">
+                        Klasična dobojska kafana na adresi Vojvode Sinđelića 16, poznata po domaćoj kuhinji, roštilju, bogatom jelovniku i vinskoj karti. Ona Moja spaja miris tradicionalnih jela, toplinu starinske kafane i živu atmosferu uz muziku za pravo kafansko veče.
+                    </p>
+                    <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                        <div class="p-5 about-feature-card">
+                            <div class="text-4xl mb-2">🍽️</div>
+                            <h4 id="about-card-1-title" class="font-bold text-rustiqe-dark mb-1">Domaća kuhinja</h4>
+                            <p id="about-card-1-text" class="text-sm text-gray-600">Doručak, čorbe, kuhana jela, roštilj, riba i specijaliteti po narudžbi.</p>
+                        </div>
+                        <div class="p-5 about-feature-card">
+                            <div class="text-4xl mb-2">🍷</div>
+                            <h4 id="about-card-2-title" class="font-bold text-rustiqe-dark mb-1">Vina i uživanje</h4>
+                            <p id="about-card-2-text" class="text-sm text-gray-600">Veliki izbor bijelih, crvenih, rose i malih vina za ručak, večeru i proslave.</p>
+                        </div>
+                        <div class="p-5 about-feature-card">
+                            <div class="text-4xl mb-2">🎻</div>
+                            <h4 id="about-card-3-title" class="font-bold text-rustiqe-dark mb-1">Kafanska atmosfera</h4>
+                            <p id="about-card-3-text" class="text-sm text-gray-600">Topao ambijent u centru Doboja, uz ritam tamburaša i druženja koja traju.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="text-center mb-16 scroll-animate">
                 <h2 id="menu-title" class="font-serif text-5xl md:text-6xl font-bold text-rustiqe-dark mb-4">Naš Meni</h2>
                 <div class="decorative-line"></div>
@@ -2137,7 +2254,7 @@
         </div>
 
         <div class="footer-bottom mt-12">
-            <p>&copy; 2026 Restoran Ona Moja. Vojvode Sinđelića 16</p>
+            <p>&copy; 2026 ONA MOJA. Vojvode Sinđelića 16</p>
             <p>74000 Doboj, Republika Srpska, BiH</p>
             <p class="mt-4">Made with ❤️ by <a href="https://cjenovnik.digital" target="_blank" rel="noopener noreferrer" class="hover:text-[#d4a373] transition-colors underline decoration-dotted underline-offset-4">Cjenovnik Digital</a></p>
         </div>
@@ -2238,7 +2355,12 @@
                 reservations: "Rezervacije putem telefona:",
                 review_text: "Ocijenite nas na Google",
                 about_title: "O nama",
-                about_sub: '"Spoj klasike i karaktera — gdje svaki obrok postane priča, a svaki trenutak ostane u sjećanju."'
+                about_sub: "Klasična dobojska kafana na adresi Vojvode Sinđelića 16, poznata po domaćoj kuhinji, roštilju, bogatom jelovniku i vinskoj karti. Ona Moja spaja miris tradicionalnih jela, toplinu starinske kafane i živu atmosferu uz muziku za pravo kafansko veče.",
+                about_cards: [
+                    ["Domaća kuhinja", "Doručak, čorbe, kuhana jela, roštilj, riba i specijaliteti po narudžbi."],
+                    ["Vina i uživanje", "Veliki izbor bijelih, crvenih, rose i malih vina za ručak, večeru i proslave."],
+                    ["Kafanska atmosfera", "Topao ambijent u centru Doboja, uz ritam tamburaša i druženja koja traju."]
+                ]
             },
             cyr: {
                 brand: "Она Моја",
@@ -2258,7 +2380,12 @@
                 reservations: "Резервације путем телефона:",
                 review_text: "Оцијените нас на Google",
                 about_title: "О нама",
-                about_sub: '"Спој класике и карактера — гдје сваки оброк постане прича, а сваки тренутак остаје у сјећању."'
+                about_sub: "Класична добојска кафана на адреси Војводе Синђелића 16, позната по домаћој кухињи, роштиљу, богатом јеловнику и винској карти. Она Моја спаја мирис традиционалних јела, топлину старинске кафане и живу атмосферу уз музику за право кафанско вече.",
+                about_cards: [
+                    ["Домаћа кухиња", "Доручак, чорбе, кувана јела, роштиљ, риба и специјалитети по наруџби."],
+                    ["Вина и уживање", "Велики избор бијелих, црвених, розе и малих вина за ручак, вечеру и прославе."],
+                    ["Кафанска атмосфера", "Топао амбијент у центру Добоја, уз ритам тамбураша и дружења која трају."]
+                ]
             },
             en: {
                 brand: "Ona Moja",
@@ -2278,7 +2405,12 @@
                 reservations: "Reservations by phone:",
                 review_text: "Review us on Google",
                 about_title: "About Us",
-                about_sub: '"A blend of classic and character — where every meal becomes a story, and every moment stays in memory."'
+                about_sub: "A classic Doboj tavern at Vojvode Sinđelića 16, known for homemade cooking, grilled specialties, a generous menu and a rich wine list. Ona Moja brings together traditional dishes, warm old-tavern hospitality and lively evenings with music in the spirit of tamburaši.",
+                about_cards: [
+                    ["Homemade cuisine", "Breakfast, stews, cooked dishes, grill, fish and made-to-order specialties."],
+                    ["Wines & enjoyment", "A broad selection of white, red, rosé and small wines for lunch, dinner and celebrations."],
+                    ["Tavern atmosphere", "A warm setting in the center of Doboj, with tamburaši-style music and long gatherings."]
+                ]
             }
         };
 
@@ -6127,6 +6259,13 @@
             document.getElementById('hero-text').innerHTML = staticI18n[lang].hero;
             document.getElementById('about-title').innerText = staticI18n[lang].about_title;
             document.getElementById('about-text').innerText = staticI18n[lang].about_sub;
+            (staticI18n[lang].about_cards || []).forEach((card, i) => {
+                const n = i + 1;
+                const title = document.getElementById(`about-card-${n}-title`);
+                const text = document.getElementById(`about-card-${n}-text`);
+                if (title) title.innerText = card[0];
+                if (text) text.innerText = card[1];
+            });
             document.getElementById('menu-title').innerText = staticI18n[lang].menu_title;
             document.getElementById('menu-subtitle').innerText = staticI18n[lang].menu_subtitle;
             document.getElementById('hero-menu-cta').innerText = staticI18n[lang].cta_menu;
