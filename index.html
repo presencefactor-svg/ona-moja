@@ -1274,6 +1274,45 @@
         .footer-brand { color: var(--kafana-white) !important; }
         .footer-tagline, #review-label { color: #ffd9d5 !important; }
         .qr-code { border-color: rgba(255,250,242,.78) !important; }
+        .footer-social-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: .85rem;
+            margin: 1.8rem auto 1.2rem;
+            max-width: 760px;
+        }
+        .footer-social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: .55rem;
+            padding: .72rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255,250,242,.32);
+            background: rgba(255,250,242,.08);
+            color: #fffaf2 !important;
+            font-size: .92rem;
+            font-weight: 700;
+            letter-spacing: .02em;
+            text-decoration: none !important;
+            transition: transform .25s ease, background .25s ease, border-color .25s ease;
+        }
+        .footer-social-link:hover {
+            transform: translateY(-2px);
+            background: rgba(255,250,242,.16);
+            border-color: rgba(255,250,242,.62);
+        }
+        .footer-social-link svg {
+            width: 20px;
+            height: 20px;
+            flex: 0 0 auto;
+            fill: currentColor;
+        }
+        @media (max-width: 640px) {
+            .footer-social-links { flex-direction: column; gap: .65rem; }
+            .footer-social-link { width: min(290px, 92vw); justify-content: center; }
+        }
 
         @media (max-width: 768px) {
             body { background-size: auto, 56px 56px, cover; }
@@ -1867,91 +1906,75 @@
 
         @media (max-width: 640px) {
             .hero {
-                min-height: auto !important;
+                min-height: 100svh !important;
                 padding: 5.2rem .9rem 1.35rem !important;
-                align-items: flex-start !important;
+                align-items: flex-end !important;
                 background: #170704 !important;
             }
-            .hero::before { inset: 10px !important; border-radius: 22px !important; }
+            .hero::before,
+            .hero::after {
+                display: none !important;
+                content: none !important;
+                opacity: 0 !important;
+            }
             .hero-bg {
-                background:
-                    linear-gradient(180deg, rgba(10,3,2,.12) 0%, rgba(10,3,2,.08) 45%, rgba(10,3,2,.72) 100%) !important;
-                background-color: #170704 !important;
+                background-image: url('images/kafana-restoran-doboj.png') !important;
+                background-color: transparent !important;
+                background-position: center center !important;
+                background-size: cover !important;
+                background-repeat: no-repeat !important;
                 filter: none !important;
+                transform: none !important;
+                opacity: 1 !important;
+                mix-blend-mode: normal !important;
+                background-blend-mode: normal !important;
+            }
+            .hero-overlay {
+                display: none !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+                background: none !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
             }
             .hero-content.hero-layout {
-                min-height: auto !important;
-                align-items: center !important;
+                min-height: calc(100svh - 6rem) !important;
+                align-items: flex-end !important;
                 justify-content: center !important;
                 flex-direction: column !important;
-                gap: .72rem !important;
+                gap: 0 !important;
                 padding: 0 .25rem !important;
             }
             .mobile-hero-portrait {
-                display: block !important;
-                width: min(84vw, 340px) !important;
-                aspect-ratio: 9 / 16 !important;
-                height: auto !important;
-                max-height: 60vh !important;
-                object-fit: cover !important;
-                object-position: center center !important;
-                border-radius: 20px !important;
-                border: 2px solid rgba(255,250,242,.86) !important;
-                background: #fffaf2 !important;
-                box-shadow: 0 18px 54px rgba(0,0,0,.36) !important;
+                display: none !important;
             }
             .hero-copy {
-                width: min(390px, 94vw) !important;
-                max-width: min(390px, 94vw) !important;
-                padding: 1rem !important;
-                border-radius: 20px !important;
-                gap: .58rem !important;
-                flex-direction: column !important;
-                background: linear-gradient(135deg, rgba(42,3,5,.78), rgba(95,7,11,.58)) !important;
+                width: fit-content !important;
+                max-width: min(360px, 92vw) !important;
+                padding: .72rem .82rem !important;
+                border-radius: 18px !important;
+                gap: .55rem !important;
+                flex-direction: row !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                background: linear-gradient(135deg, rgba(42,3,5,.66), rgba(95,7,11,.42)) !important;
+                border: 1px solid rgba(255,250,242,.24) !important;
+                box-shadow: 0 16px 46px rgba(0,0,0,.30) !important;
+                backdrop-filter: blur(6px) !important;
+                -webkit-backdrop-filter: blur(6px) !important;
             }
             .kafana-label,
             .hero-title,
             .hero-badges,
             .hero-layout .hero-subtitle,
             .hero-subtitle {
-                display: flex !important;
-            }
-            .kafana-label {
-                margin: 0 auto !important;
-                font-size: .68rem !important;
-                padding: .48rem .78rem !important;
-                letter-spacing: .1em !important;
-                white-space: nowrap !important;
-            }
-            .hero-title {
-                display: block !important;
-                margin: 0 !important;
-                font-size: clamp(2.1rem, 13vw, 3.4rem) !important;
-                line-height: .95 !important;
-                color: #fffaf2 !important;
-                letter-spacing: .08em !important;
-                text-align: center !important;
-                white-space: nowrap !important;
-            }
-            .hero-badges {
-                justify-content: center !important;
-                flex-wrap: wrap !important;
-                gap: .35rem !important;
-                margin: 0 !important;
-            }
-            .hero-badges span { font-size: .58rem !important; padding: .32rem .5rem !important; }
-            .hero-subtitle {
-                margin: .05rem auto .2rem !important;
-                max-width: 300px !important;
-                font-size: 1.05rem !important;
-                line-height: 1.18 !important;
-                color: #fffaf2 !important;
-                text-align: center !important;
-                white-space: normal !important;
+                display: none !important;
             }
             .hero-actions {
                 flex-wrap: wrap !important;
+                justify-content: center !important;
                 gap: .55rem !important;
+                width: 100% !important;
             }
             .hero-actions .premium-btn { width: auto !important; min-width: 126px !important; padding: .72rem .88rem !important; font-size: .68rem !important; }
         }
@@ -2313,6 +2336,21 @@
         <div id="footer-brand" class="footer-brand">ONA MOJA</div>
         <p id="footer-tagline" class="footer-tagline">Vaša oaza u centru Doboja</p>
         <div class="footer-divider"></div>
+
+        <div class="footer-social-links" aria-label="Ona Moja online linkovi">
+            <a class="footer-social-link" href="https://www.facebook.com/p/%D0%9E%D0%BD%D0%B0-%D0%9C%D0%BE%D1%98%D0%B0-%D0%94%D0%BE%D0%B1%D0%BE%D1%98-100054228140424/" target="_blank" rel="noopener noreferrer" aria-label="Ona Moja Facebook stranica">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.84c0-2.52 1.5-3.91 3.77-3.91 1.09 0 2.23.2 2.23.2v2.47h-1.25c-1.24 0-1.63.77-1.63 1.56v1.9h2.78l-.44 2.91h-2.34V22C18.34 21.24 22 17.08 22 12.06Z"/></svg>
+                <span>Facebook</span>
+            </a>
+            <a class="footer-social-link" href="https://www.instagram.com/onamojadoboj/" target="_blank" rel="noopener noreferrer" aria-label="Ona Moja Instagram profil">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6Zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7.2A4.8 4.8 0 1 1 12 16.8 4.8 4.8 0 0 1 12 7.2Zm0 2A2.8 2.8 0 1 0 12 14.8 2.8 2.8 0 0 0 12 9.2Z"/></svg>
+                <span>Instagram</span>
+            </a>
+            <a class="footer-social-link" href="https://www.korpa.ba/partner/kafana-ona-moja" target="_blank" rel="noopener noreferrer" aria-label="Online narudžbe preko Korpe">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2Zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2ZM7.2 14.8h7.45c.75 0 1.41-.41 1.75-1.03L21 5.44 19.26 4.5l-4.6 8.3H7.63L3.4 4H1v2h1.14l3.6 7.59-1.35 2.44C3.66 17.37 4.62 19 6.12 19H19v-2H6.12l1.08-2.2ZM8 11h6V9H8v2Zm0-3h8V6H8v2Z"/></svg>
+                <span>Online narudžbe</span>
+            </a>
+        </div>
 
         <div class="qr-section">
             <p id="review-label" class="text-sm tracking-wider uppercase mb-3">Ocijenite nas na Google</p>
