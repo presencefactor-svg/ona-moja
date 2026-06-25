@@ -1793,6 +1793,10 @@
                 linear-gradient(180deg, transparent 0%, rgba(42,3,5,.06) 58%, rgba(23,7,4,.82) 100%) !important;
         }
 
+        .mobile-hero-portrait {
+            display: none !important;
+        }
+
         .hero-content.hero-layout {
             width: 100% !important;
             max-width: none !important;
@@ -1864,23 +1868,34 @@
         @media (max-width: 640px) {
             .hero {
                 min-height: auto !important;
-                padding: calc(5.2rem + min(56vw, 240px)) .9rem 1.35rem !important;
+                padding: 5.2rem .9rem 1.35rem !important;
                 align-items: flex-start !important;
                 background: #170704 !important;
             }
             .hero::before { inset: 10px !important; border-radius: 22px !important; }
             .hero-bg {
                 background:
-                    linear-gradient(180deg, rgba(10,3,2,.08) 0%, rgba(10,3,2,.03) 44%, rgba(10,3,2,.62) 100%),
-                    url('images/restoran-doboj-onamoja.png') center 78px / calc(100vw - 22px) auto no-repeat !important;
+                    linear-gradient(180deg, rgba(10,3,2,.12) 0%, rgba(10,3,2,.08) 45%, rgba(10,3,2,.72) 100%) !important;
                 background-color: #170704 !important;
-                filter: saturate(1.08) contrast(1.03) brightness(.98) !important;
+                filter: none !important;
             }
             .hero-content.hero-layout {
                 min-height: auto !important;
-                align-items: flex-start !important;
+                align-items: center !important;
                 justify-content: center !important;
-                padding: 0 .65rem !important;
+                flex-direction: column !important;
+                gap: 1rem !important;
+                padding: 0 .35rem !important;
+            }
+            .mobile-hero-portrait {
+                display: block !important;
+                width: min(88vw, 390px) !important;
+                height: auto !important;
+                max-height: 68vh !important;
+                object-fit: contain !important;
+                border-radius: 22px !important;
+                border: 1px solid rgba(255,250,242,.34) !important;
+                box-shadow: 0 22px 70px rgba(0,0,0,.38) !important;
             }
             .hero-copy {
                 width: min(390px, 94vw) !important;
@@ -2141,6 +2156,7 @@
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
         <div class="hero-content hero-layout">
+            <img class="mobile-hero-portrait" src="images/kafana-restoran-doboj.png" alt="Kafana Ona Moja restoran Doboj">
             <div class="hero-copy">
                 <div id="hero-eyebrow" class="kafana-label">Кафана • Ресторан • Добој</div>
                 <h1 id="hero-title" class="hero-title">Она Моја</h1>
